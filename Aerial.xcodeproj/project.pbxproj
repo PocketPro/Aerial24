@@ -15,6 +15,7 @@
 		F6B206A31529309A0003B738 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B206A21529309A0003B738 /* AppDelegate.m */; };
 		F6B206A61529309A0003B738 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6B206A41529309A0003B738 /* MainStoryboard.storyboard */; };
 		F6B206A91529309A0003B738 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B206A81529309A0003B738 /* ViewController.m */; };
+		F6B206B0152930C70003B738 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206AF152930C70003B738 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +23,16 @@
 		F6B206921529309A0003B738 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F6B206941529309A0003B738 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F6B206961529309A0003B738 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F6B2069A1529309A0003B738 /* Aerial-Info.plist */ = {isa = PBXFileReference; path = "Aerial-Info.plist"; sourceTree = "<group>"; };
+		F6B2069A1529309A0003B738 /* Aerial-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Aerial-Info.plist"; sourceTree = "<group>"; };
 		F6B2069C1529309A0003B738 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F6B2069E1529309A0003B738 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F6B206A01529309A0003B738 /* Aerial-Prefix.pch */ = {isa = PBXFileReference; path = "Aerial-Prefix.pch"; sourceTree = "<group>"; };
-		F6B206A11529309A0003B738 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		F6B206A01529309A0003B738 /* Aerial-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Aerial-Prefix.pch"; sourceTree = "<group>"; };
+		F6B206A11529309A0003B738 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F6B206A21529309A0003B738 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F6B206A51529309A0003B738 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		F6B206A71529309A0003B738 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		F6B206A71529309A0003B738 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F6B206A81529309A0003B738 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F6B206AF152930C70003B738 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6B206B0152930C70003B738 /* CoreMotion.framework in Frameworks */,
 				F6B206931529309A0003B738 /* UIKit.framework in Frameworks */,
 				F6B206951529309A0003B738 /* Foundation.framework in Frameworks */,
 				F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */,
@@ -67,6 +70,7 @@
 		F6B206911529309A0003B738 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6B206AF152930C70003B738 /* CoreMotion.framework */,
 				F6B206921529309A0003B738 /* UIKit.framework */,
 				F6B206941529309A0003B738 /* Foundation.framework */,
 				F6B206961529309A0003B738 /* CoreGraphics.framework */,
