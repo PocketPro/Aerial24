@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F6B206931529309A0003B738 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206921529309A0003B738 /* UIKit.framework */; };
+		F6B206951529309A0003B738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206941529309A0003B738 /* Foundation.framework */; };
+		F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206961529309A0003B738 /* CoreGraphics.framework */; };
+		F6B2069D1529309A0003B738 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6B2069B1529309A0003B738 /* InfoPlist.strings */; };
+		F6B2069F1529309A0003B738 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B2069E1529309A0003B738 /* main.m */; };
+		F6B206A31529309A0003B738 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B206A21529309A0003B738 /* AppDelegate.m */; };
+		F6B206A61529309A0003B738 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6B206A41529309A0003B738 /* MainStoryboard.storyboard */; };
+		F6B206A91529309A0003B738 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B206A81529309A0003B738 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F6B2068E1529309A0003B738 /* Aerial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aerial.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6B206921529309A0003B738 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F6B206941529309A0003B738 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F6B206961529309A0003B738 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F6B2069A1529309A0003B738 /* Aerial-Info.plist */ = {isa = PBXFileReference; path = "Aerial-Info.plist"; sourceTree = "<group>"; };
+		F6B2069C1529309A0003B738 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F6B2069E1529309A0003B738 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F6B206A01529309A0003B738 /* Aerial-Prefix.pch */ = {isa = PBXFileReference; path = "Aerial-Prefix.pch"; sourceTree = "<group>"; };
+		F6B206A11529309A0003B738 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		F6B206A21529309A0003B738 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F6B206A51529309A0003B738 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		F6B206A71529309A0003B738 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		F6B206A81529309A0003B738 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6B2068B1529309A0003B738 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B206931529309A0003B738 /* UIKit.framework in Frameworks */,
+				F6B206951529309A0003B738 /* Foundation.framework in Frameworks */,
+				F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F6B206831529309A0003B738 = {
+			isa = PBXGroup;
+			children = (
+				F6B206981529309A0003B738 /* Aerial */,
+				F6B206911529309A0003B738 /* Frameworks */,
+				F6B2068F1529309A0003B738 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F6B2068F1529309A0003B738 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6B2068E1529309A0003B738 /* Aerial.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6B206911529309A0003B738 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6B206921529309A0003B738 /* UIKit.framework */,
+				F6B206941529309A0003B738 /* Foundation.framework */,
+				F6B206961529309A0003B738 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F6B206981529309A0003B738 /* Aerial */ = {
+			isa = PBXGroup;
+			children = (
+				F6B206A11529309A0003B738 /* AppDelegate.h */,
+				F6B206A21529309A0003B738 /* AppDelegate.m */,
+				F6B206A41529309A0003B738 /* MainStoryboard.storyboard */,
+				F6B206A71529309A0003B738 /* ViewController.h */,
+				F6B206A81529309A0003B738 /* ViewController.m */,
+				F6B206991529309A0003B738 /* Supporting Files */,
+			);
+			path = Aerial;
+			sourceTree = "<group>";
+		};
+		F6B206991529309A0003B738 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F6B2069A1529309A0003B738 /* Aerial-Info.plist */,
+				F6B2069B1529309A0003B738 /* InfoPlist.strings */,
+				F6B2069E1529309A0003B738 /* main.m */,
+				F6B206A01529309A0003B738 /* Aerial-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6B2068D1529309A0003B738 /* Aerial */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6B206AC1529309A0003B738 /* Build configuration list for PBXNativeTarget "Aerial" */;
+			buildPhases = (
+				F6B2068A1529309A0003B738 /* Sources */,
+				F6B2068B1529309A0003B738 /* Frameworks */,
+				F6B2068C1529309A0003B738 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Aerial;
+			productName = Aerial;
+			productReference = F6B2068E1529309A0003B738 /* Aerial.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6B206851529309A0003B738 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "PPG Technologies";
+			};
+			buildConfigurationList = F6B206881529309A0003B738 /* Build configuration list for PBXProject "Aerial" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F6B206831529309A0003B738;
+			productRefGroup = F6B2068F1529309A0003B738 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6B2068D1529309A0003B738 /* Aerial */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6B2068C1529309A0003B738 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B2069D1529309A0003B738 /* InfoPlist.strings in Resources */,
+				F6B206A61529309A0003B738 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6B2068A1529309A0003B738 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6B2069F1529309A0003B738 /* main.m in Sources */,
+				F6B206A31529309A0003B738 /* AppDelegate.m in Sources */,
+				F6B206A91529309A0003B738 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F6B2069B1529309A0003B738 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6B2069C1529309A0003B738 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F6B206A41529309A0003B738 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6B206A51529309A0003B738 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F6B206AA1529309A0003B738 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F6B206AB1529309A0003B738 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F6B206AD1529309A0003B738 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
+				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F6B206AE1529309A0003B738 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
+				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6B206881529309A0003B738 /* Build configuration list for PBXProject "Aerial" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B206AA1529309A0003B738 /* Debug */,
+				F6B206AB1529309A0003B738 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6B206AC1529309A0003B738 /* Build configuration list for PBXNativeTarget "Aerial" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6B206AD1529309A0003B738 /* Debug */,
+				F6B206AE1529309A0003B738 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F6B206851529309A0003B738 /* Project object */;
+}
