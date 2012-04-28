@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B29154C660D0067FBA6 /* SensingCore.m */; };
 		F6760CF7154111910070E54D /* MotionTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF6154111910070E54D /* MotionTimeline.m */; };
 		F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF9154111CF0070E54D /* GolfSwing_math.c */; };
 		F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6760CFE1541121B0070E54D /* Accelerate.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F6436B28154C660D0067FBA6 /* SensingCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensingCore.h; sourceTree = "<group>"; };
+		F6436B29154C660D0067FBA6 /* SensingCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensingCore.m; sourceTree = "<group>"; };
 		F6760CF5154111910070E54D /* MotionTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionTimeline.h; sourceTree = "<group>"; };
 		F6760CF6154111910070E54D /* MotionTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionTimeline.m; sourceTree = "<group>"; };
 		F6760CF9154111CF0070E54D /* GolfSwing_math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GolfSwing_math.c; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 			children = (
 				F6B206A11529309A0003B738 /* AppDelegate.h */,
 				F6B206A21529309A0003B738 /* AppDelegate.m */,
+				F6436B28154C660D0067FBA6 /* SensingCore.h */,
+				F6436B29154C660D0067FBA6 /* SensingCore.m */,
 				F6760CF5154111910070E54D /* MotionTimeline.h */,
 				F6760CF6154111910070E54D /* MotionTimeline.m */,
 				F6B206A71529309A0003B738 /* ViewController.h */,
@@ -196,6 +201,7 @@
 				F6B206A91529309A0003B738 /* ViewController.m in Sources */,
 				F6760CF7154111910070E54D /* MotionTimeline.m in Sources */,
 				F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */,
+				F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

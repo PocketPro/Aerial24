@@ -12,15 +12,17 @@
 
 // Motion Structures
 typedef struct {
-    NSTimeInterval timestamp;
+    NSTimeInterval timestamp; // Currently set to gyro timestamp; we're gyro-centric
     
     GSDouble vbAcceleration[3];
     
     GSDouble vbAngularVelocity[3];
-    GSDouble mBodyToRelease[9];
+    GSDouble mBodyToInitial[9];
     
     GSDouble vbAccelerationDerivative[3];
     GSDouble vbAngularVelocityDerivative[3];
+    
+    NSTimeInterval accelTimestamp; // Accel and gyro updates in general don't occur simultaneously
 } MotionSample_t;
 
 @interface MotionTimeline : NSObject
