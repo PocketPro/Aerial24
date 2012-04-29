@@ -46,7 +46,7 @@ static const char* const MotionRecognizerStateNames[] = {
 
 
 @interface MotionRecognizer : NSObject
-@property (nonatomic, readonly) MotionTimeline *motionTimeline;
+@property (nonatomic, readonly, weak) MotionTimeline *motionTimeline;
 @property (nonatomic, readonly) MotionRecognizerState state;
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 

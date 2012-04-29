@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GolfSwing_types.h"
 
+@class MotionRecognizer;
 
 // Motion Structures
 typedef struct {
@@ -33,6 +34,9 @@ typedef struct {
 // Number of samples currently in timeline. Set to 0 to reset, or n to remember only the past n samples
 @property (nonatomic) NSUInteger count;     
 
+/*** Motion Recognizers *****/
+-(void)addMotionRecognizer:(MotionRecognizer *)recognizer;
+-(void)removeMotionRecognizer:(MotionRecognizer *)recognizer;
 
 /*** Sample Retrival *********/
 // These methods return nil if the request is invalid 
@@ -49,5 +53,6 @@ typedef struct {
 //*** Sample Statistics *****/
 // Only some fields are averaged.  Range.location is a past sample index - similar to sampleAtPastIndex:
 -(MotionSample_t)averageOfSamplesInRange:(NSRange)range;
+
 
 @end

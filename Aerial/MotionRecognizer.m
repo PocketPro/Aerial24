@@ -21,7 +21,7 @@
 @interface MotionRecognizer ()
 // Redefinition of properties from readonly to rewrite
 @property (nonatomic, readwrite) MotionRecognizerState state;
-@property (nonatomic, readwrite) MotionTimeline *motionTimeline;
+@property (nonatomic, readwrite, weak) MotionTimeline *motionTimeline;
 
 // Private properties
 @property (strong, nonatomic) NSMutableArray *targetsAndActions;
@@ -178,7 +178,7 @@
 }
 
 #pragma mark - Lifecycle
--(id)init{
+- (id)init{
     if (self = [super init]){
         // Create targets and actions array
         self.targetsAndActions = [NSMutableArray array];
@@ -188,7 +188,7 @@
     }
     return self;
 }
--(id)initWithTarget:(id)target action:(SEL)action
+- (id)initWithTarget:(id)target action:(SEL)action
 {
     if (self = [self init]){
             

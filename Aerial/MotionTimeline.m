@@ -8,22 +8,47 @@
 
 #import "MotionTimeline.h"
 #import "GolfSwing_math.h"
-
+#import "MotionRecognizer.h"
 
 // Constants
 #define kTimelineCapacity  4096   /* Preferably a power of 2 for fourier transform purposes */
 
-
+// Class extension
 @interface MotionTimeline () {
     MotionSample_t _samples[kTimelineCapacity];
     MotionSample_t *_nextSample;
 }
+@property (strong, nonatomic) NSMutableArray *motionRecognizers;
 @end
 
+// Class category to expose motion timeline property on motion recognizer as readwrite
+@interface MotionRecognizer (MotionTimelineReadWrite)
+@property (nonatomic, readwrite, weak) MotionTimeline *motionTimeline;
+@end
 
 @implementation MotionTimeline
 @synthesize capacity = _capacity;
 @synthesize count = _count;
+@synthesize motionRecognizers = _motionRecognizers;
+
+#pragma mark - Motion Recognizers
+-(void)addMotionRecognizer:(MotionRecognizer *)recognizer
+{
+    if ([self.motionRecognizers indexOfObject:recognizer] == NSNotFound){
+        [self.motionRecognizers addObject:recognizer];
+        recognizer.motionTimeline = self;
+    }
+}
+-(void)removeMotionRecognizer:(MotionRecognizer *)recognizer
+{
+    // Remove all recognizers that respond true to isEqual:recognizer
+    NSUInteger index;
+    while ((index = [self.motionRecognizers indexOfObject:recognizer]) != NSNotFound){
+        MotionRecognizer *recognizerToRemove = [self.motionRecognizers objectAtIndex:index];
+        recognizerToRemove.motionTimeline = nil;
+        [self.motionRecognizers removeObjectAtIndex:index];
+    }
+}
 
 #pragma mark - Indexing
 -(MotionSample_t *)sampleForNumber:(NSInteger)n ofSamplesAfter:(MotionSample_t *)sample
@@ -136,7 +161,11 @@
 -(id)init
 {
     if (self = [super init]){
+        // Initialize circ buf
         _nextSample = _samples;
+    
+        // Allocate arrays
+        self.motionRecognizers = [NSMutableArray array];
     }
     return self;
 }
