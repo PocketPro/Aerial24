@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B29154C660D0067FBA6 /* SensingCore.m */; };
+		F6436B2F154C962C0067FBA6 /* MotionRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */; };
 		F6760CF7154111910070E54D /* MotionTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF6154111910070E54D /* MotionTimeline.m */; };
 		F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF9154111CF0070E54D /* GolfSwing_math.c */; };
 		F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6760CFE1541121B0070E54D /* Accelerate.framework */; };
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		F6436B28154C660D0067FBA6 /* SensingCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensingCore.h; sourceTree = "<group>"; };
 		F6436B29154C660D0067FBA6 /* SensingCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensingCore.m; sourceTree = "<group>"; };
+		F6436B2D154C962C0067FBA6 /* MotionRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionRecognizer.h; sourceTree = "<group>"; };
+		F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionRecognizer.m; sourceTree = "<group>"; };
 		F6760CF5154111910070E54D /* MotionTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionTimeline.h; sourceTree = "<group>"; };
 		F6760CF6154111910070E54D /* MotionTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MotionTimeline.m; sourceTree = "<group>"; };
 		F6760CF9154111CF0070E54D /* GolfSwing_math.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GolfSwing_math.c; sourceTree = "<group>"; };
@@ -64,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F6436B2C154C960A0067FBA6 /* Motion Recognizers */ = {
+			isa = PBXGroup;
+			children = (
+				F6436B2D154C962C0067FBA6 /* MotionRecognizer.h */,
+				F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */,
+			);
+			name = "Motion Recognizers";
+			sourceTree = "<group>";
+		};
 		F6760CFD154111D80070E54D /* Golf Swing Kit */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,7 +90,6 @@
 		F6B206831529309A0003B738 = {
 			isa = PBXGroup;
 			children = (
-				F6760CFE1541121B0070E54D /* Accelerate.framework */,
 				F6B206981529309A0003B738 /* Aerial */,
 				F6B206911529309A0003B738 /* Frameworks */,
 				F6B2068F1529309A0003B738 /* Products */,
@@ -96,6 +107,7 @@
 		F6B206911529309A0003B738 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F6760CFE1541121B0070E54D /* Accelerate.framework */,
 				F6B206AF152930C70003B738 /* CoreMotion.framework */,
 				F6B206921529309A0003B738 /* UIKit.framework */,
 				F6B206941529309A0003B738 /* Foundation.framework */,
@@ -113,6 +125,7 @@
 				F6436B29154C660D0067FBA6 /* SensingCore.m */,
 				F6760CF5154111910070E54D /* MotionTimeline.h */,
 				F6760CF6154111910070E54D /* MotionTimeline.m */,
+				F6436B2C154C960A0067FBA6 /* Motion Recognizers */,
 				F6B206A71529309A0003B738 /* ViewController.h */,
 				F6B206A81529309A0003B738 /* ViewController.m */,
 				F6B206A41529309A0003B738 /* MainStoryboard.storyboard */,
@@ -202,6 +215,7 @@
 				F6760CF7154111910070E54D /* MotionTimeline.m in Sources */,
 				F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */,
 				F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */,
+				F6436B2F154C962C0067FBA6 /* MotionRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
