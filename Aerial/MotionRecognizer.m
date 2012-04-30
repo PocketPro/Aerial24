@@ -162,19 +162,22 @@
 {
     MotionRecognizerState oldState = _state;
     
-    // Switch state if it's different than the one before
-    if (state != oldState){
+    // Call exit handlers
+    if (state != oldState)
         [self exitingState:_state];
-        _state = state;
-        [self enteringState:_state];
-    }
-    
-    // Message targets
+
+    // Set new state and message targets with new state
+    _state = state;
     for (NSInvocation *invocation in self.targetsAndActions)
         [invocation invoke];
     
-    // Optionally log state change information
+    // Log state change information
     NSLog(@"%@ changed state: [%c] -> [%c]",NSStringFromClass([self class]), oldState, state);
+    
+    // Call entering state handlers. This calls down to subclasses.  It's done last, becasue the subclasses
+    // may change state in these handlers, and we don't want that to mess with messaging the targets for example.
+    if (state != oldState)
+        [self enteringState:_state];
 }
 
 #pragma mark - Lifecycle
@@ -185,6 +188,9 @@
         
         // Create relationship arrays
         self.motionRecognizersRequiredToBegin = [NSMutableSet set];
+        
+        // Set initial state
+        self.state = MotionRecognizerStateReset;
     }
     return self;
 }
