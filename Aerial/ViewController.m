@@ -36,13 +36,13 @@
 #pragma mark Throw 
 - (void)throwMotionRecognizerChangedState:(ThrowMotionRecognizer *)throwMotionRecognizer
 {
-    NSLog(@"Throw motion recognizer in view controller");
 }
 
 #pragma mark Catch
 - (void)catchMotionRecognizerChangedState:(CatchMotionRecognizer *)catchMotionRecognizer
 {
-    NSLog(@"Catch motion recognizer changed state");
+    if (catchMotionRecognizer.state == MotionRecognizerStateEnded)
+        NSLog(@"Catch was a fumble: %d",  catchMotionRecognizer.isFumble);
 }
 
 #pragma mark - Lifecycle

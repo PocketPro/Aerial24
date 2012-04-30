@@ -15,10 +15,13 @@
 @interface CatchMotionRecognizer () {
     NSTimeInterval catchTime;
 }
+// Redefinitions to read-writes
+@property (nonatomic, readwrite, getter = isFumble) BOOL fumble;
 @end
 
 
 @implementation CatchMotionRecognizer
+@synthesize fumble = _fumble;
 
 #pragma mark - Motion Analysis
 
@@ -40,6 +43,11 @@
             
             // End catch after catch interval
         case MotionRecognizerStateBegan:
+            // If the acceleration drops back into the free fall zone it's a fumble
+            if (mag < 0.8*kNotFreeFallMag)
+                self.fumble = YES;
+            
+            // Check if the catch is over
             if (newSample->timestamp - catchTime >= kCatchDuration){
                 self.state = MotionRecognizerStateEnded;
             }
@@ -54,6 +62,7 @@
 - (void)didEnterStateReset
 {    
     catchTime = 0;
+    self.fumble = NO;
 }
 
 #pragma mark - State Exit

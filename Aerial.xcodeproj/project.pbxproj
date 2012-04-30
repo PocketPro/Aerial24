@@ -77,9 +77,7 @@
 		F6436B2C154C960A0067FBA6 /* Motion Recognizers */ = {
 			isa = PBXGroup;
 			children = (
-				F6436B2D154C962C0067FBA6 /* MotionRecognizer.h */,
-				F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */,
-				F6436B4A154DAC4E0067FBA6 /* MotionRecognizerSubclass.h */,
+				F68092B1154E66D2007B2E33 /* Abstract Superclass */,
 				F6436B4B154DAD420067FBA6 /* ThrowMotionRecognizer.h */,
 				F6436B4C154DAD420067FBA6 /* ThrowMotionRecognizer.m */,
 				F67A0317154E55A900AE9619 /* CatchMotionRecognizer.h */,
@@ -97,6 +95,27 @@
 				F6760CFB154111CF0070E54D /* GolfSwing_types.h */,
 			);
 			name = "Golf Swing Kit";
+			sourceTree = "<group>";
+		};
+		F68092B0154E66A3007B2E33 /* Motion Sensing */ = {
+			isa = PBXGroup;
+			children = (
+				F6436B28154C660D0067FBA6 /* SensingCore.h */,
+				F6436B29154C660D0067FBA6 /* SensingCore.m */,
+				F6760CF5154111910070E54D /* MotionTimeline.h */,
+				F6760CF6154111910070E54D /* MotionTimeline.m */,
+			);
+			name = "Motion Sensing";
+			sourceTree = "<group>";
+		};
+		F68092B1154E66D2007B2E33 /* Abstract Superclass */ = {
+			isa = PBXGroup;
+			children = (
+				F6436B2D154C962C0067FBA6 /* MotionRecognizer.h */,
+				F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */,
+				F6436B4A154DAC4E0067FBA6 /* MotionRecognizerSubclass.h */,
+			);
+			name = "Abstract Superclass";
 			sourceTree = "<group>";
 		};
 		F6B206831529309A0003B738 = {
@@ -131,15 +150,12 @@
 		F6B206981529309A0003B738 /* Aerial */ = {
 			isa = PBXGroup;
 			children = (
-				F6B206A11529309A0003B738 /* AppDelegate.h */,
-				F6B206A21529309A0003B738 /* AppDelegate.m */,
-				F6436B28154C660D0067FBA6 /* SensingCore.h */,
-				F6436B29154C660D0067FBA6 /* SensingCore.m */,
-				F6760CF5154111910070E54D /* MotionTimeline.h */,
-				F6760CF6154111910070E54D /* MotionTimeline.m */,
 				F6436B2C154C960A0067FBA6 /* Motion Recognizers */,
+				F68092B0154E66A3007B2E33 /* Motion Sensing */,
 				F6B206A71529309A0003B738 /* ViewController.h */,
 				F6B206A81529309A0003B738 /* ViewController.m */,
+				F6B206A11529309A0003B738 /* AppDelegate.h */,
+				F6B206A21529309A0003B738 /* AppDelegate.m */,
 				F6B206A41529309A0003B738 /* MainStoryboard.storyboard */,
 				F6760CFD154111D80070E54D /* Golf Swing Kit */,
 				F6B206991529309A0003B738 /* Supporting Files */,
