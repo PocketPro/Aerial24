@@ -25,15 +25,17 @@
 
 // Private properties
 @property (strong, nonatomic) NSMutableArray *targetsAndActions;
-@property (strong, nonatomic) NSMutableSet *motionRecognizersRequiredToBegin;
+@property (strong, nonatomic) NSMutableSet *motionRecognizersRequiredToAchieveState;
 @end
 
+static const NSString *MRRecognizerKey  = @"MRRecognizerKey";
+static const NSString *MRStateKey       = @"MRStateKey";
 
 @implementation MotionRecognizer
 @synthesize targetsAndActions = _targetsAndActions;
 @synthesize state = _state;
 @synthesize enabled = _enabled;
-@synthesize motionRecognizersRequiredToBegin = _gestureRecognizersRequiredToBegin;
+@synthesize motionRecognizersRequiredToAchieveState = _gestureRecognizersRequiredToAchieveState;
 @synthesize motionTimeline = _motionTimeline;
 
 #pragma mark - Relationships
@@ -43,24 +45,38 @@
     // recognized their motions before we should begin this one
     BOOL shouldWait = NO;
     
-    for (MotionRecognizer *requiredRecognizer in self.motionRecognizersRequiredToBegin){
-        if (requiredRecognizer.state < MotionRecognizerStateBegan)
+    for (NSDictionary *dict in self.motionRecognizersRequiredToAchieveState){
+        MotionRecognizer *requiredRecognizer = [dict objectForKey:MRRecognizerKey];
+        MotionRecognizerState minState = [[dict objectForKey:MRStateKey] intValue];
+        
+        if (requiredRecognizer.state < minState){
             shouldWait = YES;
+            break;
+        }
     }
     
     return shouldWait;
 }
-- (void)requireMotionRecognizerToBegin:(MotionRecognizer *)recognizer
+- (void)requireMotionRecognizer:(MotionRecognizer *)recognizer toAchieveState:(MotionRecognizerState)minState;
 {
+    // Create dictionary with our recognizer and its state
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          recognizer, MRRecognizerKey,
+                          [NSNumber numberWithInt:minState], MRStateKey,
+                          nil];
+    
     // Add this reqiured recognizer to our own interal list
-    [self.motionRecognizersRequiredToBegin addObject:recognizer];
+    [self.motionRecognizersRequiredToAchieveState addObject:dict];
     
     // Make sure the other gesture recognizer updates us of its state changes
-    [recognizer addTarget:self action:@selector(stateChangedInMotionRecognizerRequiredToBegin:)];
+    [recognizer addTarget:self action:@selector(stateChangedInMotionRecognizerRequiredToAchiveState:)];
 }
--(void)stateChangedInMotionRecognizerRequiredToBegin:(MotionRecognizer *)recognizer
+-(void)stateChangedInMotionRecognizerRequiredToAchiveState:(MotionRecognizer *)recognizer
 {
+    // Only look at this state change if we're in the waiting mode
     if (self.state == MotionRecognizerStateWaiting){
+
+        // Switch state if all required recognizers have achieved their minimum state
         if ([self shouldWaitToBegin] == NO)
             self.state = MotionRecognizerStatePossible;
     }
@@ -169,15 +185,15 @@
     if (state != oldState)
         [self exitingState:_state];
 
-    // Set new state and message targets with new state
-    _state = state;
-    for (NSInvocation *invocation in self.targetsAndActions)
-        [invocation invoke];
-    
     // Log state change information
     NSLog(@"%@ changed state: [%s] -> [%s]",NSStringFromClass([self class]), 
           MotionRecognizerStateNames[oldState],
           MotionRecognizerStateNames[state]);
+    
+    // Set new state and message targets with new state
+    _state = state;
+    for (NSInvocation *invocation in self.targetsAndActions)
+        [invocation invoke];
     
     // Call entering state handlers. This calls down to subclasses.  It's done last, becasue the subclasses
     // may change state in these handlers, and we don't want that to mess with messaging the targets for example.
@@ -192,7 +208,7 @@
         self.targetsAndActions = [NSMutableArray array];
         
         // Create relationship arrays
-        self.motionRecognizersRequiredToBegin = [NSMutableSet set];
+        self.motionRecognizersRequiredToAchieveState = [NSMutableSet set];
         
         // Set initial state and default state.
         // Default enabled state is enabled. Set this after a run loop cycle

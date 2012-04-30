@@ -16,7 +16,6 @@
 @interface ThrowMotionRecognizer () {
     NSTimeInterval possibleThrowTime, confirmedThrowTime;
 }
-
 @end
 
 
@@ -52,7 +51,7 @@
             break;
             
         default:
-            NSAssert(0,@"Invalid state in analyzeNewMotionSample in %@",NSStringFromClass([self class]));
+            break;
     }
 }
 

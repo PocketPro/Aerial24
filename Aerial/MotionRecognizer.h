@@ -25,8 +25,8 @@ typedef enum {
     // Continous or multi-step recognizer has recognized its motion:
     MotionRecognizerStateBegan,         // Motion initially recognized
     MotionRecognizerStateChanged,       // Motion changes after being recognized
-    MotionRecognizerStateEnded,         // Recognizer has finished analyzing motion with success
     MotionRecognizerStateCancelled,     // Recognizer was stopped prematured during motion analysis
+    MotionRecognizerStateEnded,         // Recognizer has finished analyzing motion with success
     
     // Recognizer has rejected motion
     MotionRecognizerStateFailed,        
@@ -43,8 +43,8 @@ static const char* const MotionRecognizerStateNames[] = {
     [MotionRecognizerStatePossible]     = "Possible",
     [MotionRecognizerStateBegan]        = "Began",
     [MotionRecognizerStateChanged]      = "Changed",
-    [MotionRecognizerStateEnded]        = "Ended",
     [MotionRecognizerStateCancelled]    = "Cancelled",
+    [MotionRecognizerStateEnded]        = "Ended",
     [MotionRecognizerStateFailed]       = "Failed"
 };
 
@@ -55,7 +55,7 @@ static const char* const MotionRecognizerStateNames[] = {
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 
 // Relationships
-- (void)requireMotionRecognizerToBegin:(MotionRecognizer *)recognizer;
+- (void)requireMotionRecognizer:(MotionRecognizer *)recognizer toAchieveState:(MotionRecognizerState)minState;
 
 // Motion Analysis
 - (void)handleNewMotionSample:(MotionSample_t *)newSample;

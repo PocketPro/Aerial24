@@ -10,6 +10,7 @@
 #import "MotionTimeline.h"
 #import "SensingCore.h"
 #import "ThrowMotionRecognizer.h"
+#import "CatchMotionRecognizer.h"
 
 @interface ViewController ()
 
@@ -31,10 +32,17 @@
 - (IBAction)jumpTouchUpInside:(id)sender {
 }
 
-#pragma mark - Throw Motion Recognizer
+#pragma mark - Motion Recognizers
+#pragma mark Throw 
 - (void)throwMotionRecognizerChangedState:(ThrowMotionRecognizer *)throwMotionRecognizer
 {
     NSLog(@"Throw motion recognizer in view controller");
+}
+
+#pragma mark Catch
+- (void)catchMotionRecognizerChangedState:(CatchMotionRecognizer *)catchMotionRecognizer
+{
+    NSLog(@"Catch motion recognizer changed state");
 }
 
 #pragma mark - Lifecycle
@@ -48,8 +56,14 @@
     MotionTimeline *motionTimeline = sensingCore.motionTimeline;
     
     // Create motion recognizers
+    // Throw
     ThrowMotionRecognizer *throwMotionRecognizer = [[ThrowMotionRecognizer alloc] initWithTarget:self action:@selector(throwMotionRecognizerChangedState:)];
     [motionTimeline addMotionRecognizer:throwMotionRecognizer];
+    
+    // Catch
+    CatchMotionRecognizer *catchMotionRecognizer = [[CatchMotionRecognizer alloc] initWithTarget:self action:@selector(catchMotionRecognizerChangedState:)];
+    [catchMotionRecognizer requireMotionRecognizer:throwMotionRecognizer toAchieveState:MotionRecognizerStateEnded]; 
+    [motionTimeline addMotionRecognizer:catchMotionRecognizer];
     
     // Start motion
     [sensingCore startSensing];

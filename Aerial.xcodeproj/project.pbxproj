@@ -13,6 +13,7 @@
 		F6760CF7154111910070E54D /* MotionTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF6154111910070E54D /* MotionTimeline.m */; };
 		F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF9154111CF0070E54D /* GolfSwing_math.c */; };
 		F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6760CFE1541121B0070E54D /* Accelerate.framework */; };
+		F67A0319154E55A900AE9619 /* CatchMotionRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F67A0318154E55A900AE9619 /* CatchMotionRecognizer.m */; };
 		F6B206931529309A0003B738 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206921529309A0003B738 /* UIKit.framework */; };
 		F6B206951529309A0003B738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206941529309A0003B738 /* Foundation.framework */; };
 		F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206961529309A0003B738 /* CoreGraphics.framework */; };
@@ -39,6 +40,8 @@
 		F6760CFB154111CF0070E54D /* GolfSwing_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GolfSwing_types.h; sourceTree = "<group>"; };
 		F6760CFE1541121B0070E54D /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		F6760D00154112340070E54D /* GolfSwing_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GolfSwing_errors.h; path = ../../PPConsmer/GolfSwingKit/GolfSwing_errors.h; sourceTree = "<group>"; };
+		F67A0317154E55A900AE9619 /* CatchMotionRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatchMotionRecognizer.h; sourceTree = "<group>"; };
+		F67A0318154E55A900AE9619 /* CatchMotionRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatchMotionRecognizer.m; sourceTree = "<group>"; };
 		F6B2068E1529309A0003B738 /* Aerial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aerial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B206921529309A0003B738 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F6B206941529309A0003B738 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,6 +82,8 @@
 				F6436B4A154DAC4E0067FBA6 /* MotionRecognizerSubclass.h */,
 				F6436B4B154DAD420067FBA6 /* ThrowMotionRecognizer.h */,
 				F6436B4C154DAD420067FBA6 /* ThrowMotionRecognizer.m */,
+				F67A0317154E55A900AE9619 /* CatchMotionRecognizer.h */,
+				F67A0318154E55A900AE9619 /* CatchMotionRecognizer.m */,
 			);
 			name = "Motion Recognizers";
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 				F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */,
 				F6436B2F154C962C0067FBA6 /* MotionRecognizer.m in Sources */,
 				F6436B4D154DAD420067FBA6 /* ThrowMotionRecognizer.m in Sources */,
+				F67A0319154E55A900AE9619 /* CatchMotionRecognizer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
