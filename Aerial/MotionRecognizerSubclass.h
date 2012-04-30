@@ -17,6 +17,6 @@
 
 // This is one of many state change handling methods.  However
 // Reset is usually required to initialize/reset all analysis variables
-- (void)enteringStateReset;
+- (void)didEnterStateReset;
 
 @end

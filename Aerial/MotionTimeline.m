@@ -103,6 +103,12 @@
     
     // Increment size
     self.count++; // Capped in setter method
+    
+    // Inform motion recognizers
+    [self.motionRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        MotionRecognizer *recognizer = (MotionRecognizer *)obj;
+        [recognizer handleNewMotionSample:newSample];
+    }];
 }
 
 

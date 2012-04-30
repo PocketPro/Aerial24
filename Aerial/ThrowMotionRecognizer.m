@@ -24,9 +24,7 @@
 
 #pragma mark - Motion Analysis
 - (void)analyzeNewMotionSample:(MotionSample_t *)newSample
-{
-    NSLog(@"Analyze new motion sample");
-    
+{    
     // Get magnitude of acceleration in newSample
     GSFloat mag = GSVectorMagnitudeD(newSample->vbAcceleration, 3);
     
@@ -49,7 +47,7 @@
                 self.state = MotionRecognizerStateCancelled;
             } else if (newSample->timestamp - possibleThrowTime >= kThrowProbationPeriod) {
                 confirmedThrowTime = possibleThrowTime;
-                self.state = MotionRecognizerStateBegan;
+                self.state = MotionRecognizerStateEnded;
             }
             break;
             
@@ -59,12 +57,17 @@
 }
 
 #pragma mark - State Entry
-- (void)enteringStateReset
-{
-    NSLog(@"State reset");
-    
+- (void)didEnterStateReset
+{    
     possibleThrowTime = 0;
     confirmedThrowTime = 0;
+}
+-(void)didEnterStateCancelled
+{
+    // Switch state to reset on the next run loop cycle
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.state = MotionRecognizerStateReset;
+    }];
 }
 
 #pragma mark - State Exit

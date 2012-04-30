@@ -11,7 +11,10 @@
 
 // State must only transition to a higher value (until it is reset) 
 typedef enum {
-    MotionRecognizerStateReset = 0,
+    MotionRecognizerStateStartup = 0,
+    
+    // Reset.  Entering this state should reset the motion recognizer
+    MotionRecognizerStateReset,
     
     // Recognizer is waiting for another gesture recognizer
     MotionRecognizerStateWaiting,
@@ -34,6 +37,7 @@ typedef enum {
 
 // State names
 static const char* const MotionRecognizerStateNames[] = {
+    [MotionRecognizerStateStartup]      = "Startup",
     [MotionRecognizerStateReset]        = "Reset",
     [MotionRecognizerStateWaiting]      = "Waiting",
     [MotionRecognizerStatePossible]     = "Possible",

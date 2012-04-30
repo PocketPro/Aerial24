@@ -13,8 +13,8 @@
  - (void)analyzeNewMotionSample:(MotionSample_t *)newSample;
  
  @optional
- - (void)exitingState___       where ___ is the name of a state as defined in MotionRecognizerStateNames
- - (void)enteringState___         ex: (void)enteringStatePossible
+ - (void)willExitState___       where ___ is the name of a state as defined in MotionRecognizerStateNames
+ - (void)didEnterState___         ex: (void)didEnterStatePossible
  *************************/
 
 
@@ -101,6 +101,8 @@
 {
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
                                 [target methodSignatureForSelector:action]];
+    [invocation setTarget:target];
+    [invocation setSelector:action];
     [invocation setArgument:(__bridge void *) self atIndex:2];    
                                 
     return invocation;
@@ -126,8 +128,9 @@
     // potential selector leaks.
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    SEL enteringStateSelector = NSSelectorFromString([NSString stringWithFormat:@"enteringState%c",
-                                                      MotionRecognizerStateNames[state]]);
+    NSString *selectorString = [NSString stringWithFormat:@"didEnterState%s",
+                                MotionRecognizerStateNames[state]];
+    SEL enteringStateSelector = NSSelectorFromString(selectorString);
     if ([self respondsToSelector:enteringStateSelector])
         [self performSelector:enteringStateSelector];
 #pragma clang diagnostic pop
@@ -152,7 +155,7 @@
     // See description for this code in the "enteringState:" method
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    SEL enteringStateSelector = NSSelectorFromString([NSString stringWithFormat:@"exitingState%c",
+    SEL enteringStateSelector = NSSelectorFromString([NSString stringWithFormat:@"willExitState%s",
                                                       MotionRecognizerStateNames[state]]);
     if ([self respondsToSelector:enteringStateSelector])
         [self performSelector:enteringStateSelector];
@@ -172,7 +175,9 @@
         [invocation invoke];
     
     // Log state change information
-    NSLog(@"%@ changed state: [%c] -> [%c]",NSStringFromClass([self class]), oldState, state);
+    NSLog(@"%@ changed state: [%s] -> [%s]",NSStringFromClass([self class]), 
+          MotionRecognizerStateNames[oldState],
+          MotionRecognizerStateNames[state]);
     
     // Call entering state handlers. This calls down to subclasses.  It's done last, becasue the subclasses
     // may change state in these handlers, and we don't want that to mess with messaging the targets for example.
@@ -189,15 +194,19 @@
         // Create relationship arrays
         self.motionRecognizersRequiredToBegin = [NSMutableSet set];
         
-        // Set initial state
-        self.state = MotionRecognizerStateReset;
+        // Set initial state and default state.
+        // Default enabled state is enabled. Set this after a run loop cycle
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.state = MotionRecognizerStateReset;
+            self.enabled = YES;
+        }];
     }
     return self;
 }
 - (id)initWithTarget:(id)target action:(SEL)action
 {
     if (self = [self init]){
-            
+        [self addTarget:target action:action];
     }
     return self;
 }
