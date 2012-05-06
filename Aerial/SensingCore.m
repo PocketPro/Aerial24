@@ -16,7 +16,7 @@ static SensingCore *sharedInstance;
 
 @interface SensingCore (){
     struct {
-        unsigned int isSensing              :1;
+        unsigned int isSensing          :1;
     } _flags;
 }
 @property (strong, nonatomic) CMMotionManager *motionManager;
@@ -97,7 +97,7 @@ static SensingCore *sharedInstance;
 }
 - (void)startSensing
 {
-    if (!_flags.isSensing){
+    if (!self.isSensing){
         // Zero out motion timeline
         self.motionTimeline.count = 0;
         
@@ -114,13 +114,33 @@ static SensingCore *sharedInstance;
             // Send off new data to our handling function
             [self handleNewGyroSample:gyroData];
         }];
+        
+        _flags.isSensing = YES;
     }
 }
 - (void)stopSensing
 {   
-    if (_flags.isSensing){
+    if (self.isSensing){
         [self.motionManager stopAccelerometerUpdates];
         [self.motionManager stopGyroUpdates];
+        _flags.isSensing = NO;
+    }
+}
+
+#pragma mark - Setters & Getters
+- (BOOL)isSensing
+{
+    BOOL gyroSensing = self.motionManager.gyroActive;
+    BOOL accelSensing = self.motionManager.accelerometerActive;
+    
+    // All variables must be true or false, otherwise we're in an invalid state. Check for this.
+    if (_flags.isSensing && gyroSensing && accelSensing)
+        return YES;
+    else if (NO == (_flags.isSensing || gyroSensing || accelSensing)){
+        return NO;
+    } else {
+        [[NSException exceptionWithName:@"Error" reason:@"Invalid sensing state." userInfo:nil] raise];
+        return NO;
     }
 }
 

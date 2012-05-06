@@ -12,6 +12,7 @@
 
 @interface SensingCore : NSObject
 @property (strong, nonatomic) MotionTimeline *motionTimeline;
+@property (nonatomic, readonly, getter = isSensing) BOOL sensing;
 
 - (void)startSensing;
 - (void)stopSensing;
