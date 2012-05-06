@@ -14,6 +14,10 @@
 		F6760CFC154111CF0070E54D /* GolfSwing_math.c in Sources */ = {isa = PBXBuildFile; fileRef = F6760CF9154111CF0070E54D /* GolfSwing_math.c */; };
 		F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6760CFE1541121B0070E54D /* Accelerate.framework */; };
 		F67A0319154E55A900AE9619 /* CatchMotionRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F67A0318154E55A900AE9619 /* CatchMotionRecognizer.m */; };
+		F684B7D61554A05B004FD2BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F684B7D51554A05A004FD2BF /* QuartzCore.framework */; };
+		F684B7E615561A2C004FD2BF /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F684B7E3155618EC004FD2BF /* libCorePlot-CocoaTouch.a */; };
+		F684B7EA15561E77004FD2BF /* PlotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F684B7E915561E77004FD2BF /* PlotViewController.m */; };
+		F684B7F115563758004FD2BF /* plotDataSourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F684B7F015563758004FD2BF /* plotDataSourcesTableViewController.m */; };
 		F6B206931529309A0003B738 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206921529309A0003B738 /* UIKit.framework */; };
 		F6B206951529309A0003B738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206941529309A0003B738 /* Foundation.framework */; };
 		F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206961529309A0003B738 /* CoreGraphics.framework */; };
@@ -24,6 +28,23 @@
 		F6B206A91529309A0003B738 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6B206A81529309A0003B738 /* ViewController.m */; };
 		F6B206B0152930C70003B738 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206AF152930C70003B738 /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F684B7E2155618EC004FD2BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F684B7D9155618EB004FD2BF /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		F684B7ED15562B2C004FD2BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F684B7D9155618EB004FD2BF /* CorePlot-CocoaTouch.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BC9B83460FB8A0A40035D8DA;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F6436B28154C660D0067FBA6 /* SensingCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensingCore.h; sourceTree = "<group>"; };
@@ -42,6 +63,12 @@
 		F6760D00154112340070E54D /* GolfSwing_errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GolfSwing_errors.h; path = ../../PPConsmer/GolfSwingKit/GolfSwing_errors.h; sourceTree = "<group>"; };
 		F67A0317154E55A900AE9619 /* CatchMotionRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatchMotionRecognizer.h; sourceTree = "<group>"; };
 		F67A0318154E55A900AE9619 /* CatchMotionRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatchMotionRecognizer.m; sourceTree = "<group>"; };
+		F684B7D51554A05A004FD2BF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F684B7D9155618EB004FD2BF /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot_1.0/Source/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
+		F684B7E815561E77004FD2BF /* PlotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotViewController.h; sourceTree = "<group>"; };
+		F684B7E915561E77004FD2BF /* PlotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlotViewController.m; sourceTree = "<group>"; };
+		F684B7EF15563758004FD2BF /* plotDataSourcesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plotDataSourcesTableViewController.h; sourceTree = "<group>"; };
+		F684B7F015563758004FD2BF /* plotDataSourcesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = plotDataSourcesTableViewController.m; sourceTree = "<group>"; };
 		F6B2068E1529309A0003B738 /* Aerial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aerial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6B206921529309A0003B738 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F6B206941529309A0003B738 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F684B7E615561A2C004FD2BF /* libCorePlot-CocoaTouch.a in Frameworks */,
+				F684B7D61554A05B004FD2BF /* QuartzCore.framework in Frameworks */,
 				F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */,
 				F6B206B0152930C70003B738 /* CoreMotion.framework in Frameworks */,
 				F6B206931529309A0003B738 /* UIKit.framework in Frameworks */,
@@ -118,9 +147,29 @@
 			name = "Abstract Superclass";
 			sourceTree = "<group>";
 		};
+		F684B7DA155618EB004FD2BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F684B7E3155618EC004FD2BF /* libCorePlot-CocoaTouch.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F684B7E715561E55004FD2BF /* Plot */ = {
+			isa = PBXGroup;
+			children = (
+				F684B7E815561E77004FD2BF /* PlotViewController.h */,
+				F684B7E915561E77004FD2BF /* PlotViewController.m */,
+				F684B7EF15563758004FD2BF /* plotDataSourcesTableViewController.h */,
+				F684B7F015563758004FD2BF /* plotDataSourcesTableViewController.m */,
+			);
+			name = Plot;
+			sourceTree = "<group>";
+		};
 		F6B206831529309A0003B738 = {
 			isa = PBXGroup;
 			children = (
+				F684B7D9155618EB004FD2BF /* CorePlot-CocoaTouch.xcodeproj */,
 				F6B206981529309A0003B738 /* Aerial */,
 				F6B206911529309A0003B738 /* Frameworks */,
 				F6B2068F1529309A0003B738 /* Products */,
@@ -142,6 +191,7 @@
 				F6B206AF152930C70003B738 /* CoreMotion.framework */,
 				F6B206921529309A0003B738 /* UIKit.framework */,
 				F6B206941529309A0003B738 /* Foundation.framework */,
+				F684B7D51554A05A004FD2BF /* QuartzCore.framework */,
 				F6B206961529309A0003B738 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
@@ -158,6 +208,7 @@
 				F6B206A21529309A0003B738 /* AppDelegate.m */,
 				F6B206A41529309A0003B738 /* MainStoryboard.storyboard */,
 				F6760CFD154111D80070E54D /* Golf Swing Kit */,
+				F684B7E715561E55004FD2BF /* Plot */,
 				F6B206991529309A0003B738 /* Supporting Files */,
 			);
 			path = Aerial;
@@ -188,6 +239,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F684B7EE15562B2C004FD2BF /* PBXTargetDependency */,
 			);
 			name = Aerial;
 			productName = Aerial;
@@ -213,12 +265,28 @@
 			mainGroup = F6B206831529309A0003B738;
 			productRefGroup = F6B2068F1529309A0003B738 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F684B7DA155618EB004FD2BF /* Products */;
+					ProjectRef = F684B7D9155618EB004FD2BF /* CorePlot-CocoaTouch.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F6B2068D1529309A0003B738 /* Aerial */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F684B7E3155618EC004FD2BF /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = F684B7E2155618EC004FD2BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F6B2068C1529309A0003B738 /* Resources */ = {
@@ -246,10 +314,20 @@
 				F6436B2F154C962C0067FBA6 /* MotionRecognizer.m in Sources */,
 				F6436B4D154DAD420067FBA6 /* ThrowMotionRecognizer.m in Sources */,
 				F67A0319154E55A900AE9619 /* CatchMotionRecognizer.m in Sources */,
+				F684B7EA15561E77004FD2BF /* PlotViewController.m in Sources */,
+				F684B7F115563758004FD2BF /* plotDataSourcesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F684B7EE15562B2C004FD2BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CorePlot-CocoaTouch";
+			targetProxy = F684B7ED15562B2C004FD2BF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F6B2069B1529309A0003B738 /* InfoPlist.strings */ = {
@@ -319,9 +397,15 @@
 		F6B206AD1529309A0003B738 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
+				HEADER_SEARCH_PATHS = "CorePlot_1.0/**";
 				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -330,9 +414,15 @@
 		F6B206AE1529309A0003B738 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ADDITIONAL_SDKS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
+				HEADER_SEARCH_PATHS = "CorePlot_1.0/**";
 				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
