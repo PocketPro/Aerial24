@@ -11,16 +11,19 @@
 #import "SensingCore.h"
 #import "ThrowMotionRecognizer.h"
 #import "CatchMotionRecognizer.h"
+#import "A24VideoCapture.h"
 
 @interface ViewController ()
 
 // IO elements
+@property (strong, nonatomic) A24VideoCapture *videoCapture;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 @property (weak, nonatomic) IBOutlet UIButton *btnJump;
 
 @end
 
 @implementation ViewController
+@synthesize videoCapture = _videoCapture;
 @synthesize lblStatus = _lblStatus;
 @synthesize btnJump = _btnJump;
 
@@ -39,6 +42,9 @@
 #pragma mark Throw 
 - (void)throwMotionRecognizerChangedState:(ThrowMotionRecognizer *)throwMotionRecognizer
 {
+    if (throwMotionRecognizer.state == MotionRecognizerStateEnded) {
+        [self.videoCapture startCapture];
+    }
 }
 
 #pragma mark Catch
@@ -47,6 +53,7 @@
     if (catchMotionRecognizer.state == MotionRecognizerStateEnded){
         self.lblStatus.text = (catchMotionRecognizer.isFumble ? @"FUMBLE!" : @"Catch" );
         [[SensingCore sharedInstance] stopSensing];
+        [self.videoCapture stopCapture];
     }
 }
 
@@ -55,6 +62,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    // Prepare the video catpure
+    if (nil == self.videoCapture) {
+        self.videoCapture = [[A24VideoCapture alloc] init];
+    }
     
     // Create sensing core and get its timeline
     SensingCore *sensingCore = [SensingCore sharedInstance];

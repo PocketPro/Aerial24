@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB13CA0D1556F7A900533007 /* A24VideoCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = BB13CA0B1556F7A900533007 /* A24VideoCapture.m */; };
+		BB13CA0F1556F94B00533007 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB13CA0E1556F94B00533007 /* AVFoundation.framework */; };
+		BB13CA111556F95100533007 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB13CA101556F95100533007 /* CoreMedia.framework */; };
+		BB13CA131556F97D00533007 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB13CA121556F97D00533007 /* CoreVideo.framework */; };
 		F6436B2A154C660D0067FBA6 /* SensingCore.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B29154C660D0067FBA6 /* SensingCore.m */; };
 		F6436B2F154C962C0067FBA6 /* MotionRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B2E154C962C0067FBA6 /* MotionRecognizer.m */; };
 		F6436B4D154DAD420067FBA6 /* ThrowMotionRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = F6436B4C154DAD420067FBA6 /* ThrowMotionRecognizer.m */; };
@@ -47,6 +51,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB13CA0B1556F7A900533007 /* A24VideoCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A24VideoCapture.m; sourceTree = "<group>"; };
+		BB13CA0C1556F7A900533007 /* A24VideoCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A24VideoCapture.h; sourceTree = "<group>"; };
+		BB13CA0E1556F94B00533007 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BB13CA101556F95100533007 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		BB13CA121556F97D00533007 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		F6436B28154C660D0067FBA6 /* SensingCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensingCore.h; sourceTree = "<group>"; };
 		F6436B29154C660D0067FBA6 /* SensingCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensingCore.m; sourceTree = "<group>"; };
 		F6436B2D154C962C0067FBA6 /* MotionRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MotionRecognizer.h; sourceTree = "<group>"; };
@@ -90,6 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB13CA131556F97D00533007 /* CoreVideo.framework in Frameworks */,
+				BB13CA111556F95100533007 /* CoreMedia.framework in Frameworks */,
+				BB13CA0F1556F94B00533007 /* AVFoundation.framework in Frameworks */,
 				F684B7E615561A2C004FD2BF /* libCorePlot-CocoaTouch.a in Frameworks */,
 				F684B7D61554A05B004FD2BF /* QuartzCore.framework in Frameworks */,
 				F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */,
@@ -103,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB13CA0A1556F79300533007 /* Video Capture */ = {
+			isa = PBXGroup;
+			children = (
+				BB13CA0B1556F7A900533007 /* A24VideoCapture.m */,
+				BB13CA0C1556F7A900533007 /* A24VideoCapture.h */,
+			);
+			name = "Video Capture";
+			sourceTree = "<group>";
+		};
 		F6436B2C154C960A0067FBA6 /* Motion Recognizers */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +208,9 @@
 		F6B206911529309A0003B738 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB13CA121556F97D00533007 /* CoreVideo.framework */,
+				BB13CA101556F95100533007 /* CoreMedia.framework */,
+				BB13CA0E1556F94B00533007 /* AVFoundation.framework */,
 				F6760CFE1541121B0070E54D /* Accelerate.framework */,
 				F6B206AF152930C70003B738 /* CoreMotion.framework */,
 				F6B206921529309A0003B738 /* UIKit.framework */,
@@ -200,6 +224,7 @@
 		F6B206981529309A0003B738 /* Aerial */ = {
 			isa = PBXGroup;
 			children = (
+				BB13CA0A1556F79300533007 /* Video Capture */,
 				F6436B2C154C960A0067FBA6 /* Motion Recognizers */,
 				F68092B0154E66A3007B2E33 /* Motion Sensing */,
 				F6B206A71529309A0003B738 /* ViewController.h */,
@@ -316,6 +341,7 @@
 				F67A0319154E55A900AE9619 /* CatchMotionRecognizer.m in Sources */,
 				F684B7EA15561E77004FD2BF /* PlotViewController.m in Sources */,
 				F684B7F115563758004FD2BF /* plotDataSourcesTableViewController.m in Sources */,
+				BB13CA0D1556F7A900533007 /* A24VideoCapture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +428,7 @@
 				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
 				HEADER_SEARCH_PATHS = "CorePlot_1.0/**";
 				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -419,6 +446,7 @@
 				GCC_PREFIX_HEADER = "Aerial/Aerial-Prefix.pch";
 				HEADER_SEARCH_PATHS = "CorePlot_1.0/**";
 				INFOPLIST_FILE = "Aerial/Aerial-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
