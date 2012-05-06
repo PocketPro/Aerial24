@@ -14,7 +14,11 @@
 
 static SensingCore *sharedInstance;
 
-@interface SensingCore ()
+@interface SensingCore (){
+    struct {
+        unsigned int isSensing              :1;
+    } _flags;
+}
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
 @property NSTimeInterval sensorUpdateInterval;
@@ -93,27 +97,31 @@ static SensingCore *sharedInstance;
 }
 - (void)startSensing
 {
-    // Zero out motion timeline
-    self.motionTimeline.count = 0;
-    
-    // Gyro-centric sampling
-    [self.motionManager startAccelerometerUpdates];
-    [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+    if (!_flags.isSensing){
+        // Zero out motion timeline
+        self.motionTimeline.count = 0;
         
-        // Check error
-        if (error){
-            [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-            [self stopSensing];
-        }
-        
-        // Send off new data to our handling function
-        [self handleNewGyroSample:gyroData];
-    }];
+        // Gyro-centric sampling
+        [self.motionManager startAccelerometerUpdates];
+        [self.motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
+            
+            // Check error
+            if (error){
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                [self stopSensing];
+            }
+            
+            // Send off new data to our handling function
+            [self handleNewGyroSample:gyroData];
+        }];
+    }
 }
 - (void)stopSensing
 {   
-    [self.motionManager stopAccelerometerUpdates];
-    [self.motionManager stopGyroUpdates];
+    if (_flags.isSensing){
+        [self.motionManager stopAccelerometerUpdates];
+        [self.motionManager stopGyroUpdates];
+    }
 }
 
 #pragma mark - Lifecycle

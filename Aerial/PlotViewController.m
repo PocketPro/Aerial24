@@ -118,6 +118,18 @@
     //axisSet.yAxis.minorTickLength = 5.0f;
     //axisSet.yAxis.majorTickLength = 7.0f;
     
+    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+    majorGridLineStyle.lineColor = [CPTColor lightGrayColor];
+    majorGridLineStyle.lineWidth = 1.0f;
+    
+    CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
+    minorGridLineStyle.lineColor = [CPTColor lightGrayColor];
+    minorGridLineStyle.dashPattern = [NSArray arrayWithObjects:[NSNumber numberWithFloat:10], [NSNumber numberWithFloat:10], nil];
+    minorGridLineStyle.lineWidth = 1.0f;
+    
+    axisSet.yAxis.majorGridLineStyle = majorGridLineStyle;
+    axisSet.yAxis.minorGridLineStyle = minorGridLineStyle;
+    
     // Add a plot to our graph and axis. We give it an identifier so that we
     // could add multiple plots (data lines) to the same graph if necessary.
     CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];

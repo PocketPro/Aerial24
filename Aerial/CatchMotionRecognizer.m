@@ -10,7 +10,7 @@
 #import "MotionRecognizerSubclass.h"
 
 #define kNotFreeFallMag         0.5  /* g's */
-#define kCatchDuration          0.5  /* Seconds */
+#define kCatchDuration          1.5  /* Seconds */
 #define kMinFumbleDuration      0.1  /* Second */
 #define kMaxFumbleAfterImpact     4  /* g's */
 
@@ -76,12 +76,14 @@
 #ifdef INCLUDES_PLOTTING
 #pragma mark - Plotting
 // Delegate method that returns the number of points on the plot
+static const NSInteger beforePaddingSamples =  50;
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     if ( [plot.identifier isEqual:@"mainplot"]  )
     {
         if (catchSampleStart && catchSampleEnd)
-            return [self.motionTimeline numberOfSamplesBetweenStart:catchSampleStart end:catchSampleEnd];
+            return [self.motionTimeline numberOfSamplesBetweenStart:catchSampleStart end:catchSampleEnd] + 
+            beforePaddingSamples;
         else 
             return 0;
     }
@@ -95,7 +97,7 @@
     if ( [plot.identifier isEqual:@"mainplot"] )
     {        
         // Get motion sample and index
-        MotionSample_t *sample = [self.motionTimeline sampleForNumber:index ofSamplesAfter:catchSampleStart];
+        MotionSample_t *sample = [self.motionTimeline sampleForNumber:index - beforePaddingSamples ofSamplesAfter:catchSampleStart];
         
         // FieldEnum determines if we return an X or Y value.
         if ( fieldEnum == CPTScatterPlotFieldX )

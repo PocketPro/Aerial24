@@ -30,6 +30,7 @@
 - (IBAction)jumpTouchCancelled:(id)sender {
 }
 - (IBAction)jumpTouchUpInside:(id)sender {
+    [[SensingCore sharedInstance] startSensing];
     [[[SensingCore sharedInstance] motionTimeline] resetAllMotionRecognizers];
     self.lblStatus.text = @"Ready..."; 
 }
@@ -45,6 +46,7 @@
 {
     if (catchMotionRecognizer.state == MotionRecognizerStateEnded){
         self.lblStatus.text = (catchMotionRecognizer.isFumble ? @"FUMBLE!" : @"Catch" );
+        [[SensingCore sharedInstance] stopSensing];
     }
 }
 
