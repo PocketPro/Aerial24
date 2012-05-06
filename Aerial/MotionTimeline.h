@@ -21,6 +21,7 @@ typedef struct {
     GSDouble mBodyToInitial[9];
     
     GSDouble vbAccelerationDerivative[3];
+    GSDouble vbAccelerationMagDerivative;
     GSDouble vbAngularVelocityDerivative[3];
     
     NSTimeInterval accelTimestamp; // Accel and gyro updates in general don't occur simultaneously
