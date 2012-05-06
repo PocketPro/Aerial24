@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlotViewController.h"
 
-@interface plotDataSourcesTableViewController : UITableViewController
+@interface plotDataSourcesTableViewController : UITableViewController <PlotViewControllerDelegate>
 
 @end

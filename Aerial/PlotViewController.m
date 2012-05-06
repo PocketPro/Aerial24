@@ -213,15 +213,14 @@
 {
     _delegate = delegate;
     
-    NSArray *plots = [self.graph allPlots];
+    [self setSegmentedControlForDelegate:_delegate];
     
+    NSArray *plots = [self.graph allPlots];
     for (CPTScatterPlot *plot in plots){           
         // Scale to fit plots
         [self.graph reloadData];
         [self.graph.defaultPlotSpace scaleToFitPlots:[self.graph allPlots]];
     }
-    
-    [self setSegmentedControlForDelegate:_delegate];
 }
 
 # pragma mark - Lifecycle

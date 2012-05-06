@@ -9,8 +9,8 @@
 #import "CatchMotionRecognizer.h"
 #import "MotionRecognizerSubclass.h"
 
-#define kNotFreeFallMag         0.5  /* g's */
-#define kCatchDuration          1.5  /* Seconds */
+#define kNotFreeFallDerivMag     20  /* g's */
+#define kCatchDuration          0.5  /* Seconds */
 #define kMinFumbleDuration      0.1  /* Second */
 #define kMaxFumbleAfterImpact     4  /* g's */
 
@@ -18,7 +18,6 @@
 @interface CatchMotionRecognizer () {
     // Times
     NSTimeInterval catchTime;
-    NSTimeInterval possibleFumbleStartTime;
     
     // Position in timeline
     MotionSample_t *catchSampleStart, *catchSampleEnd;
@@ -36,30 +35,26 @@
 - (void)analyzeNewMotionSample:(MotionSample_t *)newSample
 {    
     // Get magnitude of acceleration in newSample
-    GSFloat mag = GSVectorMagnitudeD(newSample->vbAcceleration, 3);
+    GSFloat derviMag = GSVectorMagnitudeD(newSample->vbAccelerationDerivative, 3);
+    
+    // Get last sample
+    MotionSample_t *lastSample = [self.motionTimeline sampleAtPastIndex:1];
+    if (!lastSample) return;
     
     MotionRecognizerState state = self.state;
     switch (state) {
             
             // Record the possible start of a throw when acceleration falls below threshold
         case MotionRecognizerStatePossible:
-            if (mag > kNotFreeFallMag){
-                catchTime = newSample->timestamp;
-                catchSampleStart = newSample;
+            if (derviMag > kNotFreeFallDerivMag){
+                catchTime = lastSample->timestamp;
+                catchSampleStart = lastSample;
                 self.state = MotionRecognizerStateBegan;
             }
             break;
             
             // End catch after catch interval
         case MotionRecognizerStateBegan:
-            // If the acceleration drops back into the free fall zone it's a fumble
-            if (mag < 0.8*kNotFreeFallMag && possibleFumbleStartTime == 0){
-                possibleFumbleStartTime = newSample->timestamp;
-            } else if (mag > kMaxFumbleAfterImpact && possibleFumbleStartTime != 0){
-                if (newSample->timestamp - possibleFumbleStartTime >= kMinFumbleDuration)
-                    self.fumble = YES;
-            }
-            
             
             // Check if the catch is over
             if (newSample->timestamp - catchTime >= kCatchDuration){
@@ -106,8 +101,16 @@ static const NSInteger beforePaddingSamples =  50;
         }
         else    // Y-Axis
         {
-            BOOL bDeriv = [[userInfo objectForKey:@"SelectedSegmentTitle"] isEqualToString:@"Derivative"]; 
-            GSFloat mag = (bDeriv ? GSVectorMagnitudeD(sample->vbAccelerationDerivative, 3) : GSVectorMagnitudeD(sample->vbAcceleration, 3));
+            NSString *title = [userInfo objectForKey:@"SelectedSegmentTitle"];
+            GSFloat mag;
+            if ([title isEqualToString:@"Mag Deriv"]){
+                mag = sample->vbAccelerationMagDerivative;
+            }  else if ([title isEqualToString:@"Acceleration"]) {
+                mag = GSVectorMagnitudeD(sample->vbAcceleration, 3);
+            } else if ([title isEqualToString:@"Deriv Mag"]){
+                mag = GSVectorMagnitudeD(sample->vbAccelerationDerivative, 3);
+            }
+            
             return [NSNumber numberWithFloat:mag];
         }
     }
@@ -116,7 +119,7 @@ static const NSInteger beforePaddingSamples =  50;
 }
 -(NSArray *)titlesForSegmentedControl
 {
-    return [NSArray arrayWithObjects:@"Acceleration", @"Derivative", nil];
+    return [NSArray arrayWithObjects:@"Acceleration", @"Mag Deriv", @"Deriv Mag", nil];
 }
 #endif
 
@@ -124,7 +127,6 @@ static const NSInteger beforePaddingSamples =  50;
 - (void)didEnterStateReset
 {    
     catchTime = 0;
-    possibleFumbleStartTime = 0;
     catchSampleStart = nil;
     catchSampleEnd = nil;
     self.fumble = NO;
