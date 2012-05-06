@@ -15,18 +15,31 @@
 @implementation PlotViewController
 @synthesize hostingView = _hostingView;
 @synthesize graph = _graph;
+@synthesize delegate = _delegate;
+@synthesize segmentedControl = _segmentedControl;
 
--(void)setPlotDataSourceToMotionRecognizer:(MotionRecognizer *)recognizer
+# pragma mark - UI
+- (void)setSegmentedControlForDelegate:(id <PlotViewControllerDelegate>) delegate
 {
-    NSArray *plots = [self.graph allPlots];
+    // Get titles from delegate
+    NSArray *titles = nil;
+    if ([delegate respondsToSelector:@selector(titlesForSegmentedControl)])
+        titles = [delegate titlesForSegmentedControl];
     
-    for (CPTScatterPlot *plot in plots){   
-        plot.dataSource = (id<CPTScatterPlotDataSource>) recognizer;
-        
-        // Scale to fit plots
-        [self.graph reloadData];
-        [self.graph.defaultPlotSpace scaleToFitPlots:[self.graph allPlots]];
+    // Hide segmented control if we didn't get any titles
+    if ([titles count] == 0){
+        self.segmentedControl.hidden = YES;
+        return;
     }
+    
+    // Otherwise, unhide and set titles
+    self.segmentedControl.hidden = NO;
+    [self.segmentedControl removeAllSegments];
+    for (NSString *title in titles){
+        [self.segmentedControl insertSegmentWithTitle:title atIndex:self.segmentedControl.numberOfSegments animated:NO];
+    }
+    [self.segmentedControl sizeToFit];
+    [self.segmentedControl setSelectedSegmentIndex:0];
 }
 
 # pragma mark - Graphing
@@ -112,6 +125,7 @@
     axisSet.yAxis.majorTickLineStyle = lineStyle;
     axisSet.yAxis.minorTickLineStyle = lineStyle;
     axisSet.yAxis.labelTextStyle = textStyle;
+    axisSet.yAxis.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
     //axisSet.yAxis.labelOffset = 3.0f;
     //axisSet.yAxis.majorIntervalLength = CPTDecimalFromFloat(10.0f);
     //axisSet.yAxis.minorTicksPerInterval = 1;
@@ -147,12 +161,25 @@
     [self.graph.defaultPlotSpace scaleToFitPlots:[self.graph allPlots]];
 }
 
+- (IBAction)segmentedControlChangedIndex:(id)sender {
+    [self.graph reloadData];
+    [self.graph.defaultPlotSpace scaleToFitPlots:[self.graph allPlots]];
+}
+- (NSDictionary *)userInfoDict
+{
+    NSString *selectedTitle = [self.segmentedControl titleForSegmentAtIndex:self.segmentedControl.selectedSegmentIndex];
+    return [NSDictionary dictionaryWithObjectsAndKeys:selectedTitle, @"SelectedSegmentTitle", nil];
+}
 // Delegate method that returns the number of points on the plot
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    if ( [plot.identifier isEqual:@"mainplot"] )
-    {
-        return 5;
+    if (self.delegate){
+        return [self.delegate numberOfRecordsForPlot:plot userInfo:[self userInfoDict]];
+    } else {
+        if ( [plot.identifier isEqual:@"mainplot"] )
+        {
+            return 5;
+        }
     }
     
     return 0;
@@ -161,20 +188,40 @@
 // Delegate method that returns a single X or Y value for a given plot.
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
-    if ( [plot.identifier isEqual:@"mainplot"] )
-    {        
-        // FieldEnum determines if we return an X or Y value.
-        if ( fieldEnum == CPTScatterPlotFieldX )
-        {
-            return [NSNumber numberWithFloat:index];
-        }
-        else    // Y-Axis
-        {
-            return [NSNumber numberWithFloat:index];
+    if (self.delegate){
+        return [self.delegate numberForPlot:plot field:fieldEnum recordIndex:index userInfo:[self userInfoDict]];
+    } else {
+        if ( [plot.identifier isEqual:@"mainplot"] )
+        {        
+            // FieldEnum determines if we return an X or Y value.
+            if ( fieldEnum == CPTScatterPlotFieldX )
+            {
+                return [NSNumber numberWithFloat:index];
+            }
+            else    // Y-Axis
+            {
+                return [NSNumber numberWithFloat:index];
+            }
         }
     }
     
     return [NSNumber numberWithFloat:0];
+}
+
+# pragma mark - Customized Setters & Getters
+- (void)setDelegate:(id<PlotViewControllerDelegate>)delegate
+{
+    _delegate = delegate;
+    
+    NSArray *plots = [self.graph allPlots];
+    
+    for (CPTScatterPlot *plot in plots){           
+        // Scale to fit plots
+        [self.graph reloadData];
+        [self.graph.defaultPlotSpace scaleToFitPlots:[self.graph allPlots]];
+    }
+    
+    [self setSegmentedControlForDelegate:_delegate];
 }
 
 # pragma mark - Lifecycle
@@ -202,6 +249,7 @@
 - (void)viewDidUnload
 {
     [self setHostingView:nil];
+    [self setSegmentedControl:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

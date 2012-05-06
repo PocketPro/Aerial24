@@ -11,9 +11,17 @@
 
 @class MotionRecognizer;
 
+@protocol PlotViewControllerDelegate <NSObject>
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)dictionary;
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index userInfo:(NSDictionary *)dictionary;
+
+@optional
+- (NSArray *)titlesForSegmentedControl;
+@end
+
 @interface PlotViewController : UIViewController <CPTScatterPlotDataSource>
 @property (weak, nonatomic) IBOutlet CPTGraphHostingView *hostingView;
-
--(void)setPlotDataSourceToMotionRecognizer:(MotionRecognizer *)recognizer;
+@property (weak, nonatomic) id <PlotViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 @end

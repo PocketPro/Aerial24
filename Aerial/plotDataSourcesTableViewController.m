@@ -35,7 +35,7 @@
     NSSet *allRecognizers = [[[SensingCore sharedInstance] motionTimeline] allMotionRecognizers];
     for (MotionRecognizer *recognizer in allRecognizers){
         if ([recognizer isKindOfClass:class]){
-            [plotViewController setPlotDataSourceToMotionRecognizer:recognizer];
+            plotViewController.delegate = recognizer;
             break;
         }
     }

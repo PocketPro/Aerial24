@@ -163,9 +163,23 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Psk-Ny-2oC"/>
+                    <navigationItem key="navigationItem" id="Psk-Ny-2oC">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="7N1-f0-9sh">
+                            <rect key="frame" x="96" y="7" width="128" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="First"/>
+                                <segment title="Second"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlChangedIndex:" destination="BUM-ga-2VG" eventType="valueChanged" id="kDL-VO-lCL"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="hostingView" destination="7pr-gb-cY1" id="MY9-Vt-61a"/>
+                        <outlet property="segmentedControl" destination="7N1-f0-9sh" id="tTW-mR-yCP"/>
                     </connections>
                 </viewController>
             </objects>
@@ -195,6 +209,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PlotViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="hostingView" candidateClass="CPTGraphHostingView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>
         <class className="ViewController" superclassName="UIViewController">

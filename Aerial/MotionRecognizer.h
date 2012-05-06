@@ -13,6 +13,7 @@
 #define INCLUDES_PLOTTING
     #ifdef INCLUDES_PLOTTING
     #import "CorePlot-CocoaTouch.h"
+    #import "PlotViewController.h"
     #endif
 
 // State must only transition to a higher value (until it is reset) 
@@ -55,7 +56,7 @@ static const char* const MotionRecognizerStateNames[] = {
 };
 
 
-@interface MotionRecognizer : NSObject
+@interface MotionRecognizer : NSObject <PlotViewControllerDelegate>
 @property (nonatomic, readonly, weak) MotionTimeline *motionTimeline;
 @property (nonatomic, readonly) MotionRecognizerState state;
 @property (nonatomic, getter=isEnabled) BOOL enabled;

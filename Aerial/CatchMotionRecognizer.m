@@ -77,7 +77,7 @@
 #pragma mark - Plotting
 // Delegate method that returns the number of points on the plot
 static const NSInteger beforePaddingSamples =  50;
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)dictionary
 {
     if ( [plot.identifier isEqual:@"mainplot"]  )
     {
@@ -92,7 +92,7 @@ static const NSInteger beforePaddingSamples =  50;
 }
 
 // Delegate method that returns a single X or Y value for a given plot.
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index userInfo:(NSDictionary *)userInfo
 {
     if ( [plot.identifier isEqual:@"mainplot"] )
     {        
@@ -106,12 +106,17 @@ static const NSInteger beforePaddingSamples =  50;
         }
         else    // Y-Axis
         {
-            GSFloat mag = GSVectorMagnitudeD(sample->vbAcceleration, 3);
+            BOOL bDeriv = [[userInfo objectForKey:@"SelectedSegmentTitle"] isEqualToString:@"Derivative"]; 
+            GSFloat mag = (bDeriv ? GSVectorMagnitudeD(sample->vbAccelerationDerivative, 3) : GSVectorMagnitudeD(sample->vbAcceleration, 3));
             return [NSNumber numberWithFloat:mag];
         }
     }
     
     return [NSNumber numberWithFloat:0];
+}
+-(NSArray *)titlesForSegmentedControl
+{
+    return [NSArray arrayWithObjects:@"Acceleration", @"Derivative", nil];
 }
 #endif
 
