@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MotionTimeline.h"
 
+// Plotting (for debugging)
+#define INCLUDES_PLOTTING
+    #ifdef INCLUDES_PLOTTING
+    #import "CorePlot-CocoaTouch.h"
+    #endif
+
 // State must only transition to a higher value (until it is reset) 
 typedef enum {
     MotionRecognizerStateStartup = 0,

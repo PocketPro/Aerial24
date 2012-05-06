@@ -30,6 +30,8 @@
 - (IBAction)jumpTouchCancelled:(id)sender {
 }
 - (IBAction)jumpTouchUpInside:(id)sender {
+    [[[SensingCore sharedInstance] motionTimeline] resetAllMotionRecognizers];
+    self.lblStatus.text = @"Ready..."; 
 }
 
 #pragma mark - Motion Recognizers
@@ -41,8 +43,9 @@
 #pragma mark Catch
 - (void)catchMotionRecognizerChangedState:(CatchMotionRecognizer *)catchMotionRecognizer
 {
-    if (catchMotionRecognizer.state == MotionRecognizerStateEnded)
-        NSLog(@"Catch was a fumble: %d",  catchMotionRecognizer.isFumble);
+    if (catchMotionRecognizer.state == MotionRecognizerStateEnded){
+        self.lblStatus.text = (catchMotionRecognizer.isFumble ? @"FUMBLE!" : @"Catch" );
+    }
 }
 
 #pragma mark - Lifecycle

@@ -116,6 +116,22 @@ static const NSString *MRActionKey      = @"MRActionKey";
     self.state = MotionRecognizerStateReset;
 }
 
+#ifdef INCLUDES_PLOTTING
+#pragma mark - Plotting
+
+// Delegate method that returns the number of points on the plot
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+{
+    NSLog(@"Warning: plot data source set to a motion recognizer that doesn't subclass the plotting data source methods");
+    return 0;
+}
+
+// Delegate method that returns a single X or Y value for a given plot.
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+{
+    return [NSNumber numberWithFloat:0];
+}
+#endif
 
 #pragma mark - Targets & Actions
 -(NSDictionary *)dictionaryForTarget:(id)target action:(SEL)action

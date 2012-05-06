@@ -34,17 +34,25 @@ typedef struct {
 // Number of samples currently in timeline. Set to 0 to reset, or n to remember only the past n samples
 @property (nonatomic) NSUInteger count;     
 
+// Returns a set of all the motion recognizers associated witht his timeline
+@property (nonatomic) NSSet *allMotionRecognizers;
+
 /*** Motion Recognizers *****/
--(void)addMotionRecognizer:(MotionRecognizer *)recognizer;
--(void)removeMotionRecognizer:(MotionRecognizer *)recognizer;
+- (void)addMotionRecognizer:(MotionRecognizer *)recognizer;
+- (void)removeMotionRecognizer:(MotionRecognizer *)recognizer;
+- (void)resetAllMotionRecognizers;
 
 /*** Sample Retrival *********/
 // These methods return nil if the request is invalid 
    
 // Returns past samples in the timeline. A index of 0 is the most recent sample 
 -(MotionSample_t *)sampleAtPastIndex:(NSInteger)index;
+-(MotionSample_t *)sampleForNumber:(NSInteger)n ofSamplesAfter:(MotionSample_t *)sample;
 -(MotionSample_t *)newestSample;
 -(MotionSample_t *)oldestSample;
+
+// Returns the number of samples from a start to and end point, includsive
+-(NSUInteger)numberOfSamplesBetweenStart:(MotionSample_t *)start end:(MotionSample_t *)end;
 
 //*** Sample Input **********/
 // Adds a new sample to the end of the timeline

@@ -29,7 +29,8 @@
 @implementation MotionTimeline
 @synthesize capacity = _capacity;
 @synthesize count = _count;
-@synthesize motionRecognizers = _motionRecognizers;
+@synthesize motionRecognizers = _motionRecognizers;  // Used internally
+@synthesize allMotionRecognizers = _allMotionRecognizers; // External property
 
 #pragma mark - Motion Recognizers
 -(void)addMotionRecognizer:(MotionRecognizer *)recognizer
@@ -48,6 +49,10 @@
         recognizerToRemove.motionTimeline = nil;
         [self.motionRecognizers removeObjectAtIndex:index];
     }
+}
+- (void)resetAllMotionRecognizers
+{
+    [self.motionRecognizers makeObjectsPerformSelector:@selector(reset)];
 }
 
 #pragma mark - Indexing
@@ -74,6 +79,15 @@
     
     return newSample;
 }
+// Returns the number of samples from a start to and end point, includsive
+-(NSUInteger)numberOfSamplesBetweenStart:(MotionSample_t *)start end:(MotionSample_t *)end
+{
+    if (end > start) {
+        return  end + 1 - start;
+    } else {
+        return end + self.capacity + 1 - start;
+    }
+}
 
 #pragma mark - Sample Input & Retrieval
 -(MotionSample_t *)sampleAtPastIndex:(NSInteger)samplesAgo
@@ -95,8 +109,11 @@
 
 -(void)addSample:(MotionSample_t *)newSample
 {
+    // Get sample in timeline we should set
+    MotionSample_t *newTimelineSample = _nextSample;
+    
     // Set values
-    *_nextSample = *newSample;
+    *newTimelineSample = *newSample;
     
     // Increment next sample
     _nextSample = [self sampleForNumber:1 ofSamplesAfter:_nextSample];
@@ -107,7 +124,7 @@
     // Inform motion recognizers
     [self.motionRecognizers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         MotionRecognizer *recognizer = (MotionRecognizer *)obj;
-        [recognizer handleNewMotionSample:newSample];
+        [recognizer handleNewMotionSample:newTimelineSample];
     }];
 }
 
@@ -161,6 +178,12 @@
         _count = count;
     else 
         _count = _capacity;
+}
+-(NSSet *)allMotionRecognizers
+{
+    // Currently we store all motion recognizers in a mutable array.  In the future, if there are special
+    // ones, they should also be added to the set.
+    return [NSSet setWithArray:self.motionRecognizers];
 }
 
 #pragma mark - Lifecycle
