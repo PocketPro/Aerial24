@@ -28,8 +28,13 @@
 @property (strong, nonatomic) NSMutableSet *motionRecognizersRequiredToAchieveState;
 @end
 
+// Required recognizer dictionary keys
 static const NSString *MRRecognizerKey  = @"MRRecognizerKey";
 static const NSString *MRStateKey       = @"MRStateKey";
+
+// Target action dictionary keys
+static const NSString *MRTargetKey      = @"MRTargetKey";
+static const NSString *MRActionKey      = @"MRActionKey";
 
 @implementation MotionRecognizer
 @synthesize targetsAndActions = _targetsAndActions;
@@ -113,23 +118,18 @@ static const NSString *MRStateKey       = @"MRStateKey";
 
 
 #pragma mark - Targets & Actions
--(NSInvocation *)invocationForTarget:(id)target action:(SEL)action
+-(NSDictionary *)dictionaryForTarget:(id)target action:(SEL)action
 {
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
-                                [target methodSignatureForSelector:action]];
-    [invocation setTarget:target];
-    [invocation setSelector:action];
-    [invocation setArgument:(__bridge void *) self atIndex:2];    
-                                
-    return invocation;
+    NSValue *selectorObject = [NSValue valueWithPointer:action];
+    return [NSDictionary dictionaryWithObjectsAndKeys:target, MRTargetKey, selectorObject, MRActionKey, nil];
 }
 - (void)removeTarget:(id)target action:(SEL)action
 {
-    [self.targetsAndActions removeObject:[self invocationForTarget:target action:action]];
+    [self.targetsAndActions removeObject:[self dictionaryForTarget:target action:action]];
 }
 - (void)addTarget:(id)target action:(SEL)action
 {
-    [self.targetsAndActions addObject:[self invocationForTarget:target action:action]];
+    [self.targetsAndActions addObject:[self dictionaryForTarget:target action:action]];
 }
 
 #pragma mark - Custom Setters & Getters
@@ -177,27 +177,41 @@ static const NSString *MRStateKey       = @"MRStateKey";
         [self performSelector:enteringStateSelector];
 #pragma clang diagnostic pop
 }
-- (void)setState:(MotionRecognizerState)state
+- (void)setState:(MotionRecognizerState)newState
 {
+    // Get old state and assert it's a valid state change
     MotionRecognizerState oldState = _state;
+    NSAssert(newState >= oldState || newState == MotionRecognizerStateReset, 
+             @"State error in %@: Attempted change from [%s] --> [%s].\n State must not decrease unless it is"
+             "set to MotionRecognizerStateReset.",
+             NSStringFromClass([self class]), 
+             MotionRecognizerStateNames[oldState], 
+             MotionRecognizerStateNames[newState]);
     
     // Call exit handlers
-    if (state != oldState)
+    if (newState != oldState)
         [self exitingState:_state];
 
     // Log state change information
     NSLog(@"%@ changed state: [%s] -> [%s]",NSStringFromClass([self class]), 
           MotionRecognizerStateNames[oldState],
-          MotionRecognizerStateNames[state]);
+          MotionRecognizerStateNames[newState]);
     
     // Set new state and message targets with new state
-    _state = state;
-    for (NSInvocation *invocation in self.targetsAndActions)
-        [invocation invoke];
+    _state = newState;
+    for (NSDictionary *dict in self.targetsAndActions){
+        id target = [dict objectForKey:MRTargetKey];
+        SEL action = [[dict objectForKey:MRActionKey] pointerValue];
+        // Need to do this clang stuff to avoid possible memory leak warning with ARC
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [target performSelector:action withObject:self];
+#pragma clang pop
+    }
     
     // Call entering state handlers. This calls down to subclasses.  It's done last, becasue the subclasses
     // may change state in these handlers, and we don't want that to mess with messaging the targets for example.
-    if (state != oldState)
+    if (newState != oldState)
         [self enteringState:_state];
 }
 
