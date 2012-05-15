@@ -80,7 +80,7 @@
 static const NSInteger beforePaddingSamples =  50;
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)dictionary
 {
-    if ( [plot.identifier isEqual:@"mainplot"]  )
+    if ( [plot.identifier isEqual:@"plot-1"]  )
     {
         if (throwConfirmedSample && throwStartSample)
             return [self.motionTimeline numberOfSamplesBetweenStart:throwStartSample end:throwConfirmedSample] + 
@@ -95,7 +95,7 @@ static const NSInteger beforePaddingSamples =  50;
 // Delegate method that returns a single X or Y value for a given plot.
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index userInfo:(NSDictionary *)userInfo
 {
-    if ( [plot.identifier isEqual:@"mainplot"] )
+    if ( [plot.identifier isEqual:@"plot-1"] )
     {        
         // Get motion sample and index
         MotionSample_t *sample = [self.motionTimeline sampleForNumber:index - beforePaddingSamples ofSamplesAfter:throwStartSample];

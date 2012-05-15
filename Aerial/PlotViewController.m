@@ -7,6 +7,7 @@
 //
 
 #import "PlotViewController.h"
+#import "CorePlot-CocoaTouch.h"
 
 @interface PlotViewController ()
 @property (nonatomic, strong) CPTXYGraph *graph;
@@ -146,12 +147,34 @@
     
     // Add a plot to our graph and axis. We give it an identifier so that we
     // could add multiple plots (data lines) to the same graph if necessary.
-    CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
-    plot.dataSource = self;
-    plot.identifier = @"mainplot";
-    plot.dataLineStyle = lineStyle;
-    //plot.plotSymbol = plotSymbol;
-    [self.graph addPlot:plot];
+    {
+        CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
+        plot.dataSource = self;
+        plot.identifier = @"plot-1";
+        plot.dataLineStyle = lineStyle;
+        //plot.plotSymbol = plotSymbol;
+        [self.graph addPlot:plot];
+    }
+    
+    {
+        CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
+        plot.dataSource = self;
+        plot.identifier = @"plot-2";
+        lineStyle.lineColor = [CPTColor redColor];
+        plot.dataLineStyle = lineStyle;
+        //plot.plotSymbol = plotSymbol;
+        [self.graph addPlot:plot];
+    }
+    
+    {
+        CPTScatterPlot *plot = [[CPTScatterPlot alloc] init];
+        plot.dataSource = self;
+        plot.identifier = @"plot-3";
+        lineStyle.lineColor = [CPTColor greenColor];
+        plot.dataLineStyle = lineStyle;
+        //plot.plotSymbol = plotSymbol;
+        [self.graph addPlot:plot];
+    }
     
     // Turn on interacivity
     [self.graph.defaultPlotSpace setAllowsUserInteraction:YES];
@@ -176,8 +199,7 @@
     if (self.delegate){
         return [self.delegate numberOfRecordsForPlot:plot userInfo:[self userInfoDict]];
     } else {
-        if ( [plot.identifier isEqual:@"mainplot"] )
-        {
+        if ( [plot.identifier isEqual:@"plot-1"] ) {
             return 5;
         }
     }
@@ -191,7 +213,7 @@
     if (self.delegate){
         return [self.delegate numberForPlot:plot field:fieldEnum recordIndex:index userInfo:[self userInfoDict]];
     } else {
-        if ( [plot.identifier isEqual:@"mainplot"] )
+        if ( [plot.identifier isEqual:@"plot-1"] )
         {        
             // FieldEnum determines if we return an X or Y value.
             if ( fieldEnum == CPTScatterPlotFieldX )
@@ -255,7 +277,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 @end

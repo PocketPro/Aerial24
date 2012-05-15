@@ -50,17 +50,23 @@
 
 // Delegate method that returns the number of points on the plot
 static const NSInteger numSamples =  175;
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)dictionary
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)userInfo
 {
     // Number of samples in three seconds
     // Get motion sample and index
     MotionSample_t *firstSample = [[[SensingCore sharedInstance] motionTimeline] sampleAtPastIndex:numSamples];
+    NSString *title = [userInfo objectForKey:@"SelectedSegmentTitle"];
     if (firstSample == nil)
         return 0;
     
-    if ( [plot.identifier isEqual:@"mainplot"]  )
-    {
+    if ([plot.identifier isEqual:@"plot-1"]) {
         return numSamples;
+    } else if ([plot.identifier isEqual:@"plot-2"]) {
+        if ([title isEqualToString:@"3 Axis"])
+            return numSamples;
+    } else if ([plot.identifier isEqual:@"plot-3"]) {
+        if ([title isEqualToString:@"3 Axis"])
+            return numSamples;
     }
     
     return 0;
@@ -69,16 +75,16 @@ static const NSInteger numSamples =  175;
 // Delegate method that returns a single X or Y value for a given plot.
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index userInfo:(NSDictionary *)userInfo
 {
-    if ( [plot.identifier isEqual:@"mainplot"] )
-    {        
-        // Get motion sample and index
-        MotionSample_t *firstSample = [[[SensingCore sharedInstance] motionTimeline] sampleAtPastIndex:numSamples];
-        MotionSample_t *sample = [[[SensingCore sharedInstance] motionTimeline] 
-                                  sampleAtPastIndex:numSamples - index];
-        
-        if (firstSample == nil || sample == nil)
-            return nil;
-        
+    // Get motion sample and index
+    MotionSample_t *firstSample = [[[SensingCore sharedInstance] motionTimeline] sampleAtPastIndex:numSamples];
+    MotionSample_t *sample = [[[SensingCore sharedInstance] motionTimeline] 
+                              sampleAtPastIndex:numSamples - index];
+    NSString *title = [userInfo objectForKey:@"SelectedSegmentTitle"];
+    if (firstSample == nil || sample == nil)
+        return nil;
+    
+    
+    if ( [plot.identifier isEqual:@"plot-1"] ) {        
         // FieldEnum determines if we return an X or Y value.
         if ( fieldEnum == CPTScatterPlotFieldX )
         {
@@ -86,17 +92,45 @@ static const NSInteger numSamples =  175;
         }
         else    // Y-Axis
         {
-            NSString *title = [userInfo objectForKey:@"SelectedSegmentTitle"];
-            GSFloat mag;
             if ([title isEqualToString:@"Mag Deriv"]){
-                mag = sample->vbAccelerationMagDerivative;
-            }  else if ([title isEqualToString:@"Acceleration"]) {
-                mag = GSVectorMagnitudeD(sample->vbAcceleration, 3);
+                return [NSNumber numberWithFloat:sample->vbAccelerationMagDerivative];
+            }  else if ([title isEqualToString:@"Accel"]) {
+                return [NSNumber numberWithFloat:GSVectorMagnitudeD(sample->vbAcceleration, 3)];
             } else if ([title isEqualToString:@"Deriv Mag"]){
-                mag = GSVectorMagnitudeD(sample->vbAccelerationDerivative, 3);
+                return [NSNumber numberWithFloat:GSVectorMagnitudeD(sample->vbAccelerationDerivative, 3)];
+            } else if ([title isEqualToString:@"3 Axis"]) {
+                return [NSNumber numberWithFloat:sample->vbAcceleration[0]];
             }
             
-            return [NSNumber numberWithFloat:mag];
+            return [NSNumber numberWithFloat:0];
+        }
+    } else if ([plot.identifier isEqual:@"plot-2"]){
+        // FieldEnum determines if we return an X or Y value.
+        if ( fieldEnum == CPTScatterPlotFieldX )
+        {
+            return [NSNumber numberWithDouble:(sample->timestamp - firstSample->timestamp) * 1E3];
+        }
+        else    // Y-Axis
+        {
+            if ([title isEqualToString:@"3 Axis"]) {
+                return [NSNumber numberWithFloat:sample->vbAcceleration[1]];
+            }
+            
+            return [NSNumber numberWithFloat:0];
+        }
+    } else if ([plot.identifier isEqual:@"plot-3"]){
+        // FieldEnum determines if we return an X or Y value.
+        if ( fieldEnum == CPTScatterPlotFieldX )
+        {
+            return [NSNumber numberWithDouble:(sample->timestamp - firstSample->timestamp) * 1E3];
+        }
+        else    // Y-Axis
+        {
+            if ([title isEqualToString:@"3 Axis"]) {
+                return [NSNumber numberWithFloat:sample->vbAcceleration[2]];
+            }
+            
+            return [NSNumber numberWithFloat:0];
         }
     }
     
@@ -104,7 +138,7 @@ static const NSInteger numSamples =  175;
 }
 -(NSArray *)titlesForSegmentedControl
 {
-    return [NSArray arrayWithObjects:@"Acceleration", @"Mag Deriv", @"Deriv Mag", nil];
+    return [NSArray arrayWithObjects:@"Accel", @"Mag Deriv", @"Deriv Mag", @"3 Axis", nil];
 }
 
 
@@ -137,7 +171,7 @@ static const NSInteger numSamples =  175;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 
