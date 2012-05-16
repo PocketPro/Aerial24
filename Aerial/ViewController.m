@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 @property (weak, nonatomic) IBOutlet UIButton *btnJump;
 @property (weak, nonatomic) IBOutlet UILabel *lblVideoStatus;
+@property (strong) NSDate *startOfRecording;
+@property (strong) NSDate *startOfFreeFall;
 
 @end
 
@@ -29,6 +31,7 @@
 @synthesize lblStatus = _lblStatus;
 @synthesize btnJump = _btnJump;
 @synthesize lblVideoStatus = _lblVideoStatus;
+@synthesize startOfRecording, startOfFreeFall;
 
 #pragma mark - Button touch events
 - (IBAction)jumpTouchedDown:(id)sender {
@@ -79,7 +82,7 @@
                                              selector:@selector(movieFinishedCallback:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:playerVC.moviePlayer];
-    
+
     [self presentModalViewController:playerVC animated:YES];
     [playerVC.moviePlayer prepareToPlay];
     [playerVC.moviePlayer play];
@@ -111,6 +114,7 @@
 - (void)throwMotionRecognizerChangedState:(ThrowMotionRecognizer *)throwMotionRecognizer
 {
     if (throwMotionRecognizer.state == MotionRecognizerStateEnded) {
+        self.startOfFreeFall = [NSDate date];
     }
 }
 
@@ -168,11 +172,30 @@
 - (void)A24VideoCaptureDidStartRecording:(A24VideoCapture*)videoCapture
 {
     self.lblVideoStatus.text = @"recording";
+    
+    
+    self.startOfRecording = [NSDate date];
+    self.startOfFreeFall = nil;
 }
 
 - (void)A24VideoCaptureDidStopRecording:(A24VideoCapture*)videoCapture
 {
-    self.lblVideoStatus.text = @"not recording";
+    self.lblVideoStatus.text = @"stopped recording";
+    
+    NSLog(@"VideoCaptureDidStopRecording. Video duration: %f seconds", CMTimeGetSeconds(videoCapture.captureOutput.recordedDuration));
+}
+
+- (float)cropTimeForA24VideoCapture:(A24VideoCapture*)videoCapture
+{
+    if ((self.startOfFreeFall && self.startOfRecording) == FALSE) {
+        NSLog(@"UnableToCalculateCropTime: Both startOfFreeFall %@ and startOfRecording %@ must be valid to estimate the crop time.",self.startOfFreeFall, self.startOfRecording);
+//        [NSException raise:@"UnableToCalculateCropTime" format:@"Both startOfFreeFall %@ and startOfRecording %@ need to be to estimate the crop time.",self.startOfFreeFall, self.startOfRecording];
+        return 0.0;
+    }    
+    
+    NSTimeInterval cropTime = [self.startOfFreeFall timeIntervalSinceDate:self.startOfRecording];
+    NSLog(@"The duration between the start of video recording and the start of free fall is %f", cropTime);
+    return cropTime;
 }
 
 - (BOOL)A24VideoCaptureShouldSaveVideo:(A24VideoCapture*)videoCapture
@@ -196,7 +219,6 @@
 
 - (void)A24VideoCaptureDidRemoveMovieFile:(A24VideoCapture*)videoCapture
 {
-    self.lblVideoStatus.text = @"deleted";
-}
+    self.lblVideoStatus.text = @"deleted";}
 
 @end

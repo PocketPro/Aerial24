@@ -8,8 +8,16 @@
 
 #import "A24VideoCapture.h"
 
+#define CM_TIMESCALE 600
+#define MAX_DURATION_SECONDS 10
+#define CM_DURATION CM_TIMESCALE*MAX_DURATION_SECONDS
+
+@interface A24VideoCapture()
+@end
+
 @implementation A24VideoCapture
 @synthesize delegate;
+@synthesize captureOutput,captureSession;
 @synthesize movieURL;
 
 - (id)init
@@ -27,7 +35,7 @@
 										  deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] 
 										  error:nil];
     captureOutput = [[AVCaptureMovieFileOutput alloc] init];
-    captureOutput.maxRecordedDuration = CMTimeMake(6000, 600); //Denotes a maximum recording duration of 10 seconds.
+    captureOutput.maxRecordedDuration = CMTimeMake(CM_DURATION, CM_TIMESCALE); //Denotes a maximum recording duration of 10 seconds.
     
     // The capture session coordinates the input and output devices.
 	captureSession = [[AVCaptureSession alloc] init];
@@ -75,14 +83,6 @@
     [captureOutput stopRecording];   
 }
 
-#pragma mark - AVCaptureFileOutputDelegate
-- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
-{
-    NSLog(@"captureOutput:didStartRecordingToOutputFileAtURL:fromConnections:");
-    if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidStartRecording:)]){
-        [self.delegate A24VideoCaptureDidStartRecording:self];
-    }
-}
 
 - (void)deleteMovieFile
 {
@@ -96,6 +96,63 @@
     
     if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidRemoveMovieFile:)]){
         [self.delegate A24VideoCaptureDidRemoveMovieFile:self];
+    }
+}
+
+/*
+- (void)trimMovieAtURL:(NSURL*)movieFileURL
+{
+    if ([self.delegate respondsToSelector:@selector(cropTimeForA24VideoCapture:)] == NO){
+        NSLog(@"A24VideoCaptureDelegate does not implement croptimeForA24VideoCapture:. This method must be implemented in order to crop video.");
+        return;
+    }
+    
+    AVAsset *anAsset = [AVAsset assetWithURL:movieFileURL];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]
+                                           initWithAsset:anAsset presetName:AVAssetExportPresetHighestQuality];
+    NSString *trimmedFileName = [[movieFilename stringByAppendingString:@"_trimmed"] stringByAppendingPathExtension:VIDEO_EXTENSION];
+    NSURL *baseURL = [movieFileURL URLByDeletingLastPathComponent];
+    trimmedMovieURL = [baseURL URLByAppendingPathComponent:trimmedFileName];
+    exportSession.outputURL = trimmedMovieURL;
+    
+    NSLog(@"supportedFileTypes %@", exportSession.supportedFileTypes);
+    
+    exportSession.outputFileType = @"com.apple.quicktime-movie";
+                               
+    float cropTime = [self.delegate cropTimeForA24VideoCapture:self];
+    float cropTimeWithBias = MAX(0, cropTime - 2.0); //add a two second bias.
+    float durationTime = CMTimeGetSeconds(self.captureOutput.recordedDuration) - cropTimeWithBias;
+    CMTime start = CMTimeMakeWithSeconds(cropTimeWithBias, CM_TIMESCALE);
+    CMTime duration = CMTimeMakeWithSeconds(durationTime, CM_TIMESCALE);
+    CMTimeRange range = CMTimeRangeMake(start, duration);
+    exportSession.timeRange = range;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        NSLog(@"Export session has completed trimming the video. Status: %d.", exportSession.status);
+        NSLog(@"Trimmed video URL: %@", trimmedMovieURL);
+        [self deleteMovieFileAtURL:movieURL];
+        
+        BOOL isCompatibly = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([trimmedMovieURL path]);
+        if (isCompatibly) {
+            if ([self.delegate respondsToSelector:@selector(A24VideoCaptureWillSaveVideoToPhotosAlbum:)]){
+                [self.delegate A24VideoCaptureWillSaveVideoToPhotosAlbum:self];
+            }
+            UISaveVideoAtPathToSavedPhotosAlbum([trimmedMovieURL path], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+        }
+        else {
+            [NSException raise:@"PhotosAlbumVideoFormatNotSupported" format:@"The video format for a recorded video is not supported by the saved photos album. This recording can not be saved."];
+        }
+    }];
+}
+*/
+
+#pragma mark - AVCaptureFileOutputDelegate
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
+{
+    NSLog(@"captureOutput:didStartRecordingToOutputFileAtURL:fromConnections:");
+    if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidStartRecording:)]){
+        [self.delegate A24VideoCaptureDidStartRecording:self];
     }
 }
 
@@ -128,7 +185,7 @@
         }
     } else {
         // Default behavior
-        [self deleteMovieFile];
+            [self deleteMovieFile];
     }
     
     
