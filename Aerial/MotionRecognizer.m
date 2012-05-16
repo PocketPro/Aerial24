@@ -120,14 +120,14 @@ static const NSString *MRActionKey      = @"MRActionKey";
 #pragma mark - Plotting
 
 // Delegate method that returns the number of points on the plot
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot userInfo:(NSDictionary *)dictionary;
 {
     NSLog(@"Warning: plot data source set to a motion recognizer that doesn't subclass the plotting data source methods");
     return 0;
 }
 
 // Delegate method that returns a single X or Y value for a given plot.
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index userInfo:(NSDictionary *)dictionary
 {
     return [NSNumber numberWithFloat:0];
 }

@@ -15,7 +15,7 @@
 @class A24VideoCapture;
 
 @protocol A24VideoCaptureDelegate <NSObject>
-- (void)a24VideoCapture:(A24VideoCapture*)videoCapture;
+
 @end
 
 @interface A24VideoCapture : NSObject <AVCaptureFileOutputRecordingDelegate>

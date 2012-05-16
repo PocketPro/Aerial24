@@ -16,22 +16,22 @@ static SensingCore *sharedInstance;
 
 @interface SensingCore (){
     struct {
-        unsigned int isSensing              :1;
+        unsigned int isSensing          :1;
     } _flags;
 }
 @property (strong, nonatomic) CMMotionManager *motionManager;
-
-@property NSTimeInterval sensorUpdateInterval;
 @end
 
 @implementation SensingCore
 @synthesize motionTimeline = _motionTimeline;
 @synthesize motionManager = _motionManager;
-@synthesize sensorUpdateInterval = _sensorUpdateInterval;
 
 #pragma mark - Sensing
 - (void)handleNewGyroSample:(CMGyroData *)gyroData
 {
+    // NB: This method will return and not update the timeline if we don't also have a new gyro
+    //     data point.  This will cause uneven sampling, but fix help reduce the number of error derivatives
+    
     // Get accelerometer data
     CMAccelerometerData *accelData = self.motionManager.accelerometerData;
     
@@ -52,20 +52,18 @@ static SensingCore *sharedInstance;
     // Now get the last sample, and set the delta variables
     MotionSample_t *lastMotionSample = [self.motionTimeline newestSample];
     if (lastMotionSample){
+        // Calculate accel derivative and return if we don't have a new accel sample too.
+        NSTimeInterval accelInterval = newMotionSample.accelTimestamp - lastMotionSample->accelTimestamp;
+        if (accelInterval == 0) return;
+        
         // Calculate gyro dervative
         NSTimeInterval gyroInterval = newMotionSample.timestamp - lastMotionSample->timestamp;
         GSVectorSubtractD(newMotionSample.vbAngularVelocityDerivative, newMotionSample.vbAngularVelocity, lastMotionSample->vbAngularVelocity, 3);
         GSVectorScalarDivideD(newMotionSample.vbAngularVelocityDerivative, newMotionSample.vbAngularVelocityDerivative, gyroInterval, 3);
         
-        // Calculate accel derivative, or set to 0 if there was no change
-        NSTimeInterval accelInterval = newMotionSample.accelTimestamp - lastMotionSample->accelTimestamp;
-        if (accelInterval <= 0){
-            GSVectorElement_t vZero[3] = {0.0, 0.0, 0.0};
-            GSVectorCopyD(newMotionSample.vbAccelerationDerivative, vZero, 3);
-        } else {
-            GSVectorSubtractD(newMotionSample.vbAccelerationDerivative, newMotionSample.vbAcceleration, lastMotionSample->vbAcceleration, 3);
-            GSVectorScalarDivideD(newMotionSample.vbAccelerationDerivative, newMotionSample.vbAccelerationDerivative, accelInterval, 3);
-        }
+        GSVectorSubtractD(newMotionSample.vbAccelerationDerivative, newMotionSample.vbAcceleration, lastMotionSample->vbAcceleration, 3);
+        GSVectorScalarDivideD(newMotionSample.vbAccelerationDerivative, newMotionSample.vbAccelerationDerivative, accelInterval, 3);
+        newMotionSample.vbAccelerationMagDerivative = (GSVectorMagnitudeD(newMotionSample.vbAcceleration, 3) - GSVectorMagnitudeD(lastMotionSample->vbAcceleration, 3)) / accelInterval;
         
         // Calculate change in body to lab matrix 
         // Get average angular velcoity over interval
@@ -97,7 +95,7 @@ static SensingCore *sharedInstance;
 }
 - (void)startSensing
 {
-    if (!_flags.isSensing){
+    if (!self.isSensing){
         // Zero out motion timeline
         self.motionTimeline.count = 0;
         
@@ -114,13 +112,33 @@ static SensingCore *sharedInstance;
             // Send off new data to our handling function
             [self handleNewGyroSample:gyroData];
         }];
+        
+        _flags.isSensing = YES;
     }
 }
 - (void)stopSensing
 {   
-    if (_flags.isSensing){
+    if (self.isSensing){
         [self.motionManager stopAccelerometerUpdates];
         [self.motionManager stopGyroUpdates];
+        _flags.isSensing = NO;
+    }
+}
+
+#pragma mark - Setters & Getters
+- (BOOL)isSensing
+{
+    BOOL gyroSensing = self.motionManager.gyroActive;
+    BOOL accelSensing = self.motionManager.accelerometerActive;
+    
+    // All variables must be true or false, otherwise we're in an invalid state. Check for this.
+    if (_flags.isSensing && gyroSensing && accelSensing)
+        return YES;
+    else if (NO == (_flags.isSensing || gyroSensing || accelSensing)){
+        return NO;
+    } else {
+        [[NSException exceptionWithName:@"Error" reason:@"Invalid sensing state." userInfo:nil] raise];
+        return NO;
     }
 }
 
@@ -138,9 +156,10 @@ static SensingCore *sharedInstance;
     }
     
     // Set sampling rates
-    self.sensorUpdateInterval = 0.01;
-    self.motionManager.gyroUpdateInterval = self.sensorUpdateInterval;
-    self.motionManager.accelerometerUpdateInterval = self.sensorUpdateInterval;
+    float sensorUpdateInterval = 0.01;
+    self.motionManager.accelerometerUpdateInterval = sensorUpdateInterval;
+    self.motionManager.gyroUpdateInterval = sensorUpdateInterval;
+    NSLog(@"Accel sampling rate: %f\n Gyro sampling rate: %f",self.motionManager.accelerometerUpdateInterval, self.motionManager.gyroUpdateInterval);
 }
 
 + (SensingCore *)sharedInstance
