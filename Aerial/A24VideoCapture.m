@@ -27,6 +27,7 @@
 										  deviceInputWithDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] 
 										  error:nil];
     captureOutput = [[AVCaptureMovieFileOutput alloc] init];
+    captureOutput.maxRecordedDuration = CMTimeMake(6000, 600); //Denotes a maximum recording duration of 10 seconds.
     
     // The capture session coordinates the input and output devices.
 	captureSession = [[AVCaptureSession alloc] init];
@@ -77,6 +78,7 @@
 #pragma mark - AVCaptureFileOutputDelegate
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
+    NSLog(@"captureOutput:didStartRecordingToOutputFileAtURL:fromConnections:");
     if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidStartRecording:)]){
         [self.delegate A24VideoCaptureDidStartRecording:self];
     }
@@ -99,6 +101,8 @@
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error
 {    
+    NSLog(@"captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:");
+    
     if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidStopRecording:)]){
         [self.delegate A24VideoCaptureDidStopRecording:self];
     }
