@@ -21,7 +21,6 @@
 		F684B7D61554A05B004FD2BF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F684B7D51554A05A004FD2BF /* QuartzCore.framework */; };
 		F684B7EA15561E77004FD2BF /* PlotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F684B7E915561E77004FD2BF /* PlotViewController.m */; };
 		F684B7F115563758004FD2BF /* plotDataSourcesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F684B7F015563758004FD2BF /* plotDataSourcesTableViewController.m */; };
-		F6A622C91561F8C200AF82F0 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A622C61561F81100AF82F0 /* libCorePlot-CocoaTouch.a */; };
 		F6B206931529309A0003B738 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206921529309A0003B738 /* UIKit.framework */; };
 		F6B206951529309A0003B738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206941529309A0003B738 /* Foundation.framework */; };
 		F6B206971529309A0003B738 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B206961529309A0003B738 /* CoreGraphics.framework */; };
@@ -102,7 +101,6 @@
 				BB13CA131556F97D00533007 /* CoreVideo.framework in Frameworks */,
 				BB13CA111556F95100533007 /* CoreMedia.framework in Frameworks */,
 				BB13CA0F1556F94B00533007 /* AVFoundation.framework in Frameworks */,
-				F684B7E615561A2C004FD2BF /* libCorePlot-CocoaTouch.a in Frameworks */,
 				F684B7D61554A05B004FD2BF /* QuartzCore.framework in Frameworks */,
 				F6760CFF1541121B0070E54D /* Accelerate.framework in Frameworks */,
 				F6B206B0152930C70003B738 /* CoreMotion.framework in Frameworks */,
