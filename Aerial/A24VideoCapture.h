@@ -15,7 +15,13 @@
 @class A24VideoCapture;
 
 @protocol A24VideoCaptureDelegate <NSObject>
-
+@optional
+- (void)A24VideoCaptureDidStartRecording:(A24VideoCapture*)videoCapture;
+- (void)A24VideoCaptureDidStopRecording:(A24VideoCapture*)videoCapture;
+- (BOOL)A24VideoCaptureShouldSaveVideo:(A24VideoCapture*)videoCapture;
+- (void)A24VideoCaptureWillSaveVideoToPhotosAlbum:(A24VideoCapture*)videoCapture;
+- (void)A24VideoCaptureDidRemoveMovieFile:(A24VideoCapture*)videoCapture;
+- (void)A24VideoCapture:(A24VideoCapture*)videoCapture didSaveVideoToPhotosAlbum:(NSError*)error;
 @end
 
 @interface A24VideoCapture : NSObject <AVCaptureFileOutputRecordingDelegate>
@@ -24,6 +30,8 @@
     AVCaptureMovieFileOutput *captureOutput;
     NSURL *movieURL;
 }
+@property (weak) id <A24VideoCaptureDelegate> delegate;
+@property (strong, readonly) NSURL *movieURL;
 
 - (void)startCapture;
 - (void)stopCapture;
