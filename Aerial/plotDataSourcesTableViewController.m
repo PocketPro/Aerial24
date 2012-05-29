@@ -66,6 +66,8 @@ static const NSInteger numSamples =  175;
             return numSamples;
         else if ([title isEqualToString:@"Gyro"])
             return numSamples;
+        else if ([title isEqualToString:@"GD"])
+            return numSamples;
     } else if ([plot.identifier isEqual:@"plot-3"]) {
         if ([title isEqualToString:@"3 Axis"])
             return numSamples;
@@ -106,6 +108,8 @@ static const NSInteger numSamples =  175;
                 return [NSNumber numberWithFloat:sample->vbAcceleration[0]];
             } else if ([title isEqualToString:@"Gyro"]) {
                 return [NSNumber numberWithFloat:sample->vbAngularVelocity[0]];
+            } else if ([title isEqualToString:@"GD"]) {
+                return [NSNumber numberWithFloat:sample->vbAngularVelocity[0]];
             }
             
             return [NSNumber numberWithFloat:0];
@@ -122,6 +126,8 @@ static const NSInteger numSamples =  175;
                 return [NSNumber numberWithFloat:sample->vbAcceleration[1]];
             else if ([title isEqualToString:@"Gyro"])
                 return [NSNumber numberWithFloat:sample->vbAngularVelocity[1]];
+            else if ([title isEqualToString:@"GD"])
+                return [NSNumber numberWithFloat:sample->vbAngularVelocityDerivative[0]];
             
             return [NSNumber numberWithFloat:0];
         }
@@ -146,7 +152,7 @@ static const NSInteger numSamples =  175;
 }
 -(NSArray *)titlesForSegmentedControl
 {
-    return [NSArray arrayWithObjects:@"Accel", @"Mag Deriv", @"Deriv Mag", @"3 Axis", @"Gyro", nil];
+    return [NSArray arrayWithObjects:@"Accel", @"Mag Deriv", @"Deriv Mag", @"3 Axis", @"Gyro", @"GD", nil];
 }
 
 

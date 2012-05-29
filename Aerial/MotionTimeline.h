@@ -52,7 +52,7 @@ typedef struct {
 -(MotionSample_t *)newestSample;
 -(MotionSample_t *)oldestSample;
 
-// Returns the number of samples from a start to and end point, includsive
+// Returns the number of samples from a start to and end point, inclusive
 -(NSUInteger)numberOfSamplesBetweenStart:(MotionSample_t *)start end:(MotionSample_t *)end;
 
 //*** Sample Input **********/

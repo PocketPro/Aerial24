@@ -9,5 +9,6 @@
 #import "MotionRecognizer.h"
 
 @interface ThrowMotionRecognizer : MotionRecognizer
+@property (nonatomic, readonly) MotionSample_t *throwSample;
 
 @end
