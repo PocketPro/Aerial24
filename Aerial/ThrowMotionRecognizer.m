@@ -25,6 +25,7 @@
 
 
 @implementation ThrowMotionRecognizer
+@synthesize throwSample = throwStartSample;
 
 #pragma mark - Motion Analysis
 - (void)analyzeNewMotionSample:(MotionSample_t *)newSample

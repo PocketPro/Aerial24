@@ -66,6 +66,8 @@
                                     <segue destination="eQM-zH-l5U" kind="push" id="YCM-1z-0iW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="ywW-lj-5ia">
+                                <rect key="frame" x="0.0" y="238" width="320" height="96"/>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="T6Z-jr-hA6">
                                 <rect key="frame" x="26" y="395" width="274" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,6 +75,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4qv-xC-rzu">
                                 <rect key="frame" x="84" y="343" width="72" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -95,6 +98,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="btnJump" destination="Pcw-Ij-hJ1" id="KGf-PP-cYA"/>
+                        <outlet property="lblDetails" destination="ywW-lj-5ia" id="6wg-fg-63u"/>
                         <outlet property="lblStatus" destination="lb1-KO-0Mm" id="eYL-f0-eDB"/>
                         <outlet property="lblVideoStatus" destination="T6Z-jr-hA6" id="TfD-QL-meq"/>
                     </connections>

@@ -29,6 +29,7 @@
 
 @implementation CatchMotionRecognizer
 @synthesize fumble = _fumble;
+@synthesize catchSample = catchSampleStart;
 
 #pragma mark - Motion Analysis
 

@@ -9,5 +9,6 @@
 #import "MotionRecognizer.h"
 
 @interface CatchMotionRecognizer : MotionRecognizer
+@property (nonatomic, readonly) MotionSample_t *catchSample;
 @property (nonatomic, readonly, getter = isFumble) BOOL fumble;
 @end
