@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "A24VideoCapture.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <A24VideoCaptureDelegate>
 
 @end
