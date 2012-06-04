@@ -174,7 +174,8 @@ typedef struct {
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:playerVC.moviePlayer];
 
-    [self presentModalViewController:playerVC animated:YES];
+    [self presentMoviePlayerViewControllerAnimated:playerVC];
+//    [self presentModalViewController:playerVC animated:YES];
     [playerVC.moviePlayer prepareToPlay];
     [playerVC.moviePlayer play];
 }
