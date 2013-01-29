@@ -91,7 +91,7 @@
         // File removed successfully
     } else {
         // File was not removed
-        [NSException raise:@"A24VideoCaptureCouldNotRemoveFile" format:@"The video file at path %@ could not be removed."];
+        [NSException raise:@"A24VideoCaptureCouldNotRemoveFile" format:@"The video file at path could not be removed."];
     }
     
     if ([self.delegate respondsToSelector:@selector(A24VideoCaptureDidRemoveMovieFile:)]){

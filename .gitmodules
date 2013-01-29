@@ -1,0 +1,3 @@
+[submodule "GolfSwingKit"]
+	path = GolfSwingKit
+	url = git@github.com:PocketPro/GolfSwingKit.git
